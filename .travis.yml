@@ -1,0 +1,7 @@
+language: android
+android:
+  components:
+  #    Build Tools Used by your project
+  - build-tools-28.0.3
+  #    Sdk version used to compile project
+  - android-28

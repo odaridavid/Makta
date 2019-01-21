@@ -1,8 +1,13 @@
 language: android
 android:
   components:
+  # Build Tools used for project
   - build-tools-28.0.3
+  # Compile Sdk Version
   - android-28
+  # Additional components
+  - extra-google-google_play_services
+  - extra-google-m2repository
 before_install:
-- openssl aes-256-cbc -K $encrypted_0ff029239134_key -iv $encrypted_0ff029239134_iv
-  -in google-services.json.enc -out google-services.json -d
+#  google-json encrypted for firebase
+- openssl aes-256-cbc -K $encrypted_0ff029239134_key -iv $encrypted_0ff029239134_iv -in google-services.json.enc -out google-services.json -d

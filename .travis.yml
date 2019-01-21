@@ -1,7 +1,8 @@
 language: android
 android:
   components:
-  #    Build Tools Used by your project
   - build-tools-28.0.3
-  #    Sdk version used to compile project
   - android-28
+before_install:
+- openssl aes-256-cbc -K $encrypted_0ff029239134_key -iv $encrypted_0ff029239134_iv
+  -in google-services.json.enc -out google-services.json -d

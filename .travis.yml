@@ -2,6 +2,8 @@ language: android
 sudo: false
 android:
   components:
+  - tools
+  - platform-tools
   # Build Tools used for project
   - build-tools-28.0.3
   # Compile Sdk Version

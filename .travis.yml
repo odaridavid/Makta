@@ -25,7 +25,7 @@ before_script:
 - emulator -avd test -no-audio -no-window &
 - adb shell input keyevent 82 &
 script:
-- ./gradlew connectedAndroidTest -PdisablePreDex
+- ./gradlew connectedDebugAndroidTest -PdisablePreDex
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/

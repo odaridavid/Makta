@@ -8,7 +8,7 @@ android:
   # Additional components
   - extra-google-google_play_services
   - extra-google-m2repository
-  - sys-img-armeabi-v7a-addon-google_apis-google-21
+  - sys-img-armeabi-v7a-google_apis-21
 before_install:
 #  google-json encrypted for firebase
 - openssl aes-256-cbc -K $encrypted_0ff029239134_key -iv $encrypted_0ff029239134_iv -in google-services.json.enc -out app/google-services.json -d
@@ -19,7 +19,7 @@ env:
 
 # Emulator Management: Create, Start and Wait
 before_script:
-- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+- echo no | android create avd --force -n test -t android-21 --abi sys-img-armeabi-v7a-google-apis
 - emulator -avd test -no-skin -no-audio -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &

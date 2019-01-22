@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setupBottomNavigation(BottomNavigationView navigation) {
+    private void setupBottomNavigation(BottomNavigationView navigation) {
         navigation.setOnNavigationItemSelectedListener(menuItem ->
         {
             switch (menuItem.getItemId()) {

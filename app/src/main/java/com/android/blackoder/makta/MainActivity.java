@@ -1,10 +1,8 @@
 package com.android.blackoder.makta;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message_text_view);
+        BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
         setupBottomNavigation(navigation);
 
     }
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_book_search_view);
                     return true;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_book_search_view);
+                    mTextMessage.setText(R.string.title_user_profile_view);
                     return true;
             }
             return false;

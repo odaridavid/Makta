@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Makta</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!--Bottom navigation titles-->
+
+    <!-- Borrowed books fragment title -->
+    <string name="title_borrowed_books_view">Borrowed</string>
+    <!-- Lent Books Fragment title -->
+    <string name="title_lent_books_view">Lent</string>
+    <!-- Book search fragment title-->
+    <string name="title_book_search_view">Search</string>
+    <!-- User Profile Fragment View-->
+    <string name="title_user_profile_view">Profile</string>
 </resources>

@@ -11,25 +11,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +19,29 @@ public class MainActivity extends AppCompatActivity {
 
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        setupBottomNavigation(navigation);
+
+    }
+
+    public void setupBottomNavigation(BottomNavigationView navigation) {
+        navigation.setOnNavigationItemSelectedListener(menuItem ->
+        {
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_borrowed:
+                    mTextMessage.setText(R.string.title_borrowed_books_view);
+                    return true;
+                case R.id.navigation_lent:
+                    mTextMessage.setText(R.string.title_lent_books_view);
+                    return true;
+                case R.id.navigation_search:
+                    mTextMessage.setText(R.string.title_book_search_view);
+                    return true;
+                case R.id.navigation_profile:
+                    mTextMessage.setText(R.string.title_book_search_view);
+                    return true;
+            }
+            return false;
+        });
     }
 
 }

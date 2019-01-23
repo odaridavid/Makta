@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Navigation to borrowed books view -->
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_borrowed"
+        android:icon="@drawable/ic_borrowed"
+        android:title="@string/title_borrowed_books_view"
+        app:showAsAction="withText|ifRoom" />
 
+    <!-- Navigation to lent books view -->
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/navigation_lent"
+        android:icon="@drawable/ic_lent"
+        android:title="@string/title_lent_books_view"
+        app:showAsAction="withText|ifRoom" />
 
+    <!--Navigation to search for books view-->
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_book_search_view"
+        app:showAsAction="withText|ifRoom" />
 
+    <!--Navigation to user profile view-->
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/title_user_profile_view"
+        app:showAsAction="withText|ifRoom" />
 </menu>

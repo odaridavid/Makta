@@ -1,6 +1,10 @@
 language: android
 jdk: oraclejdk8
 sudo: false
+env:
+  global:
+  #    Fix timeout before install to 20 min
+  - ADB_INSTALL_TIMEOUT=20
 android:
   components:
   - tools
@@ -11,18 +15,18 @@ android:
   # Compile Sdk Version
   - android-28
   #  Emulator version
-  - android-22
+  - android-25
   # Additional components
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-google_apis-22
+  - sys-img-armeabi-v7a-google_apis-25
   licenses:
   - 'android-sdk-preview-license-52d11cd2'
   - 'android-sdk-license-.+'
   - 'google-gdk-license-.+'
 before_script:
-- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a --tag google_apis
+- echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a --tag google_apis
 - emulator -avd test -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
@@ -37,7 +41,3 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache
-env:
-  global:
-#    Fix timeout before install to 10 min
-  - ADB_INSTALL_TIMEOUT=10

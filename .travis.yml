@@ -33,3 +33,7 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache
+license:
+- 'android-sdk-preview-license-52d11cd2'
+- 'android-sdk-license-.+'
+- 'google-gdk-license-.+'

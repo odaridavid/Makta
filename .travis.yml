@@ -5,19 +5,20 @@ android:
   components:
   - tools
   - platform-tools
+  - tools
   # Build Tools used for project
   - build-tools-28.0.3
   # Compile Sdk Version
   - android-28
   #  Emulator version
-  - android-21
+  - android-22
   # Additional components
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-google_apis-21
+  - sys-img-armeabi-v7a-google_apis-22
 before_script:
-- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --tag google_apis
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a --tag google_apis
 - emulator -avd test -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
@@ -32,4 +33,3 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache
-script: ./gradlew connectedAndroidTest -PdisablePreDex

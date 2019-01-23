@@ -15,23 +15,28 @@ android:
   # Compile Sdk Version
   - android-28
   #  Emulator version
-  - android-21
+  - android-19
   # Additional components
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-google_apis-21
+  - sys-img-armeabi-v7a-google_apis-19
   licenses:
   - 'android-sdk-preview-license-52d11cd2'
   - 'android-sdk-license-.+'
   - 'google-gdk-license-.+'
 before_script:
-- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --tag google_apis
-- emulator -avd test  &
+- echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a --tag google_apis
+- emulator -avd test -no-window &
 - android-wait-for-emulator
+- adb shell settings put global window_animation_scale 0 &
+- adb shell settings put global transition_animation_scale 0 &
+- adb shell settings put global animator_duration_scale 0 &
+- adb shell input keyevent 82 &
 
 before_install:
 #  google-json encrypted for firebase
 - openssl aes-256-cbc -K $encrypted_0ff029239134_key -iv $encrypted_0ff029239134_iv -in google-services.json.enc -out app/google-services.json -d
+- echo yes | android update sdk --all --filter build-tools-28.0.3 --no-ui --force
 script:
 - ./gradlew build connectedCheck -PdisablePreDex

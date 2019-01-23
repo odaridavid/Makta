@@ -15,18 +15,18 @@ android:
   # Compile Sdk Version
   - android-28
   #  Emulator version
-  - android-19
+  - android-21
   # Additional components
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-google_apis-19
+  - sys-img-armeabi-v7a-google_apis-21
   licenses:
   - 'android-sdk-preview-license-52d11cd2'
   - 'android-sdk-license-.+'
   - 'google-gdk-license-.+'
 before_script:
-- echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a --tag google_apis
+- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --tag google_apis
 - emulator -avd test -no-window &
 - android-wait-for-emulator
 - adb shell settings put global window_animation_scale 0 &

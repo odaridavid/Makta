@@ -2,7 +2,9 @@ package com.android.blackoder.makta;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,15 @@ public class MainActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void unlockScreen() {
+        final MainActivity activity = mActivityActivityTestRule.getActivity();
+        Runnable wakeUpDevice = () -> activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        activity.runOnUiThread(wakeUpDevice);
+    }
 
     @Test
     public void testBottomNavigationNavigatesCorrectly() {

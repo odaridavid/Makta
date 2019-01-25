@@ -4,7 +4,7 @@
     <color name="purple_500_dark">#6a0080</color>
     <color name="purple_500_light">#d05ce3</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="yellow_a200">#ffff00</color>
-    <color name="yellow_a200_light">#ffff5a</color>
-    <color name="yellow_a200_dark">#c7cc00</color>
+    <color name="amber_a400">#ffc400</color>
+    <color name="amber_a400_light">#fff64f</color>
+    <color name="amber_a400_dark">#c79400</color>
 </resources>

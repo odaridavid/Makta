@@ -6,26 +6,26 @@
         android:id="@+id/navigation_borrowed"
         android:icon="@drawable/ic_borrowed"
         android:title="@string/title_borrowed_books_view"
-        app:showAsAction="withText|ifRoom" />
+        app:showAsAction="ifRoom" />
 
     <!-- Navigation to lent books view -->
     <item
         android:id="@+id/navigation_lent"
         android:icon="@drawable/ic_lent"
         android:title="@string/title_lent_books_view"
-        app:showAsAction="withText|ifRoom" />
+        app:showAsAction="ifRoom" />
 
     <!--Navigation to search for books view-->
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
         android:title="@string/title_book_search_view"
-        app:showAsAction="withText|ifRoom" />
+        app:showAsAction="ifRoom" />
 
     <!--Navigation to user profile view-->
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_user_profile_view"
-        app:showAsAction="withText|ifRoom" />
+        app:showAsAction="ifRoom" />
 </menu>

@@ -4,7 +4,7 @@
     <style name="Theme.MaktaApp" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryDark">@color/purple_500_dark</item>
-        <item name="colorSecondary">@color/yellow_a200</item>
+        <item name="colorSecondary">@color/amber_a400</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

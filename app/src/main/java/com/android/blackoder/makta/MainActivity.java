@@ -15,8 +15,6 @@ public class MainActivity extends AppCompatActivity {
 //      Setup bottom navigation
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
         setupBottomNavigation(navigation);
-//        Set Default title
-        setActionBarTitle(R.string.title_borrowed_books_view);
 
     }
 
@@ -25,25 +23,17 @@ public class MainActivity extends AppCompatActivity {
         {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_borrowed:
-                    setActionBarTitle(R.string.title_borrowed_books_view);
                     return true;
                 case R.id.navigation_lent:
-                    setActionBarTitle(R.string.title_lent_books_view);
                     return true;
                 case R.id.navigation_search:
-                    setActionBarTitle(R.string.title_book_search_view);
                     return true;
                 case R.id.navigation_profile:
-                    setActionBarTitle(R.string.title_user_profile_view);
                     return true;
             }
             return false;
         });
     }
 
-    private void setActionBarTitle(int titleResource) {
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(titleResource);
-    }
 
 }

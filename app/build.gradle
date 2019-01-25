@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion compileVersion
     defaultConfig {
         applicationId "com.android.blackoder.makta"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion minVersion
+        targetSdkVersion targetVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -32,19 +32,19 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    Support Libs
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:support-media-compat:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation  supportLibs.appcompatV7
+    implementation  supportLibs.supportV4
+    implementation  supportLibs.supportMediaCompat
+    implementation  supportLibs.design
+    implementation  supportLibs.constraintLayout
 //    Firebase Libs
-    implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+    implementation firebaseLibs.crashylitics
+    implementation firebaseLibs.firebaseCore
 //    Testing Libs
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.2"
+    testImplementation unitTestLibs.junit
+    androidTestImplementation androidTestLibs.espressoContrib
+    androidTestImplementation androidTestLibs.espressoCore
+    androidTestImplementation androidTestLibs.testRules
+    androidTestImplementation androidTestLibs.testRunner
 }
 apply plugin: 'com.google.gms.google-services'

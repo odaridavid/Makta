@@ -1,9 +1,11 @@
-package com.android.blackoder.makta;
+package com.android.blackoder.makta.view;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.android.blackoder.makta.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -4,12 +4,12 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/30048de38b81d5c84e26/test_coverage)](https://codeclimate.com/github/Davidodari/Makta/test_coverage)
 # Makta
 
-Makta is an Android App that lets users borrow or lend their own books to other users on the platform
+Makta is an Android App that lets users borrow or lend their own books to other users on the platform.
 
 ## PREREQUISITES
 
-1. Setup Firebase Project from [Firebase Console](https://firebase.google.com/?) and add the google-services.json file to `app` directory
+1. Setup Firebase Project from [Firebase Console](https://firebase.google.com/?) and add the google-services.json file to `app` directory.
 
 ## License
  
- This Project is licensed under Apache 2.0 license for more details refer to [LICENSE](https://github.com/Davidodari/Makta/blob/master/LICENSE.txt)
+ This Project is licensed under Apache 2.0 license for more details refer to [LICENSE](https://github.com/Davidodari/Makta/blob/master/LICENSE.txt).

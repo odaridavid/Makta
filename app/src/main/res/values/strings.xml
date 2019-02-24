@@ -11,4 +11,8 @@
     <string name="title_book_search_view">Search</string>
     <!-- User Profile Fragment View-->
     <string name="title_user_profile_view">Profile</string>
+    <string name="book_request">Book Request</string>
+    <string name="wish_list">Wish List</string>
+    <string name="my_boooks">My Boooks</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

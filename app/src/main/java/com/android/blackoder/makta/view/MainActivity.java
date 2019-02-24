@@ -2,10 +2,12 @@ package com.android.blackoder.makta.view;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.view.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     return true;
                 case R.id.navigation_profile:
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_container, new ProfileFragment());
+                    ft.commit();
                     return true;
             }
             return false;

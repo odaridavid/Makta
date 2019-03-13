@@ -43,8 +43,10 @@ ext {
 //    Firebase Dependencies
     firebaseCoreVersion = '16.0.6'
     firebaseCrashyliticsVersion = '2.9.8'
+    firebaseUiAuthVersion = '4.3.1'
     firebaseLibs = [
            crashylitics : "com.crashlytics.sdk.android:crashlytics:$firebaseCrashyliticsVersion",
-           firebaseCore : "com.google.firebase:firebase-core:$firebaseCoreVersion"
+           firebaseCore : "com.google.firebase:firebase-core:$firebaseCoreVersion",
+           firebaseUiAuth: "com.firebaseui:firebase-ui-auth:$firebaseUiAuthVersion"
     ]
 }

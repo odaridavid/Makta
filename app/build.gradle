@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug{
+        debug {
             testCoverageEnabled true
         }
         release {
@@ -32,14 +32,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    Support Libs
-    implementation  supportLibs.appcompatV7
-    implementation  supportLibs.supportV4
-    implementation  supportLibs.supportMediaCompat
-    implementation  supportLibs.design
-    implementation  supportLibs.constraintLayout
+    implementation supportLibs.appcompatV7
+    implementation supportLibs.supportV4
+    implementation supportLibs.supportMediaCompat
+    implementation supportLibs.design
+    implementation supportLibs.constraintLayout
 //    Firebase Libs
     implementation firebaseLibs.crashylitics
     implementation firebaseLibs.firebaseCore
+    implementation firebaseLibs.firebaseUiAuth
 //    Testing Libs
     testImplementation unitTestLibs.junit
     androidTestImplementation androidTestLibs.espressoContrib

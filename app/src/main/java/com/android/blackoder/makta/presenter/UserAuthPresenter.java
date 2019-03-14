@@ -1,11 +1,10 @@
 package com.android.blackoder.makta.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.auth.FirebaseUIAuthentication;
+import com.android.blackoder.makta.utils.FirebaseUIAuthentication;
 import com.android.blackoder.makta.contract.AuthContract;
 import com.android.blackoder.makta.model.UserAuth;
 import com.android.blackoder.makta.view.MainActivity;

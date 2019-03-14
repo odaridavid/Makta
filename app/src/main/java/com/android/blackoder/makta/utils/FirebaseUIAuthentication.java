@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.auth;
+package com.android.blackoder.makta.utils;
 
 
 import com.firebase.ui.auth.AuthUI;

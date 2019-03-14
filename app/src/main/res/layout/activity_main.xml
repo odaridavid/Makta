@@ -11,7 +11,8 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="72dp"/>
     <!-- Bottom navigation to profile,search,borrowed an lent books view-->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_bottom_navigation"

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
@@ -18,8 +19,9 @@ import com.android.blackoder.makta.view.LoginActivity;
 import com.android.blackoder.makta.view.SettingsActivity;
 import com.android.blackoder.makta.view.WishListActivity;
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Calendar;
 
 /**
  * Created By blackcoder
@@ -32,12 +34,19 @@ public final class ProfileFragment extends Fragment {
 
     }
 
+    private TextView tv_username, tv_email, tv_location;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         Button btnSignOut = view.findViewById(R.id.button_sign_out);
         CardView card_request, card_wishlist, card_books, card_settings;
+
+        tv_username = view.findViewById(R.id.text_view_username);
+        tv_email = view.findViewById(R.id.text_view_email);
+        tv_location = view.findViewById(R.id.text_view_location);
+        setupUserProfile();
         card_request = view.findViewById(R.id.card_book_request);
         card_wishlist = view.findViewById(R.id.card_wish_list);
         card_books = view.findViewById(R.id.card_my_books);
@@ -59,5 +68,22 @@ public final class ProfileFragment extends Fragment {
     private void intentHandler(@NonNull Class<?> cls) {
         Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
+    }
+
+    private void setupUserProfile() {
+        FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFirebaseUser == null) {
+            tv_username.append("David Odari");
+            tv_email.append("davidkibodari@gmail.com");
+            tv_location.append("Nairobi,Kenya");
+        } else {
+            tv_username.append(mFirebaseUser.getDisplayName());
+            if (!mFirebaseUser.getEmail().isEmpty()) {
+                tv_email.append(mFirebaseUser.getEmail());
+            } else {
+                tv_email.append(mFirebaseUser.getPhoneNumber());
+            }
+            tv_location.append("Unknown Location");
+        }
     }
 }

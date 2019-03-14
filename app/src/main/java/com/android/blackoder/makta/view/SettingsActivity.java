@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 
@@ -133,6 +134,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(SettingsActivity.this, "Tuende", Toast.LENGTH_LONG).show();
     }
 
     /**

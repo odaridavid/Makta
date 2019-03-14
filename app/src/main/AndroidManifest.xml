@@ -13,12 +13,28 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-        <activity android:name=".view.WishListActivity" />
-        <activity android:name=".view.BookListActivity" />
-        <activity android:name=".view.BookRequestActivity" />
-        <activity android:name=".view.BookEntryActivity" />
-        <activity android:name=".view.BookDetailActivity" />
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
+            android:name=".view.WishListActivity"
+            android:label="WishList"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
+            android:name=".view.BookListActivity"
+            android:label="My Books"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
+            android:name=".view.BookRequestActivity"
+            android:label="Book Request"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
+            android:name=".view.BookEntryActivity"
+            android:label="Book Entry"
+            android:parentActivityName=".view.BookListActivity" />
+        <activity
+            android:name=".view.BookDetailActivity"
+            android:label="Book Details"
+            android:parentActivityName=".view.BookListActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +44,8 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

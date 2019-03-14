@@ -24,9 +24,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.add(R.id.fragment_container, new BorrowedFragment());
-        mFragmentTransaction.commit();
+        Fragment brFrag = getSupportFragmentManager().findFragmentByTag("Borrowed");
+        if (brFrag != null && brFrag.isVisible()) {
+            mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+            mFragmentTransaction.add(R.id.fragment_container, new BorrowedFragment());
+            mFragmentTransaction.commit();
+        }
         setupBottomNavigation(navigation);
     }
 
@@ -35,25 +38,25 @@ public class MainActivity extends AppCompatActivity {
         {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_borrowed:
-                    setupFragment(new BorrowedFragment());
+                    setupFragment(new BorrowedFragment(), "Borrowed");
                     return true;
                 case R.id.navigation_lent:
-                    setupFragment(new LentFragment());
+                    setupFragment(new LentFragment(), "Lent");
                     return true;
                 case R.id.navigation_search:
-                    setupFragment(new SearchFragment());
+                    setupFragment(new SearchFragment(), "Search");
                     return true;
                 case R.id.navigation_profile:
-                    setupFragment(new ProfileFragment());
+                    setupFragment(new ProfileFragment(), "Profile");
                     return true;
             }
             return false;
         });
     }
 
-    public void setupFragment(Fragment fragment) {
+    public void setupFragment(Fragment fragment, String Tag) {
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, fragment);
+        mFragmentTransaction.replace(R.id.fragment_container, fragment, Tag);
         mFragmentTransaction.commit();
     }
 

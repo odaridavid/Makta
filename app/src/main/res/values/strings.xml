@@ -90,4 +90,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="no_borrowed_books">No Borrowed Books</string>
     <string name="no_lent_books">No Lent Books</string>
+    <string name="settings">Settings</string>
 </resources>

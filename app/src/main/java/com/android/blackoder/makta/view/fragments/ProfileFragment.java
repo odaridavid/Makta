@@ -15,6 +15,7 @@ import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.view.BookListActivity;
 import com.android.blackoder.makta.view.BookRequestActivity;
 import com.android.blackoder.makta.view.LoginActivity;
+import com.android.blackoder.makta.view.SettingsActivity;
 import com.android.blackoder.makta.view.WishListActivity;
 import com.firebase.ui.auth.AuthUI;
 
@@ -36,22 +37,15 @@ public final class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         Button btnSignOut = view.findViewById(R.id.button_sign_out);
-        CardView card_request, card_wishlist, card_books;
+        CardView card_request, card_wishlist, card_books, card_settings;
         card_request = view.findViewById(R.id.card_book_request);
         card_wishlist = view.findViewById(R.id.card_wish_list);
         card_books = view.findViewById(R.id.card_my_books);
-        card_request.setOnClickListener(v -> {
-            Intent book_request_intent = new Intent(getActivity(), BookRequestActivity.class);
-            startActivity(book_request_intent);
-        });
-        card_wishlist.setOnClickListener(v -> {
-            Intent book_wishlist_intent = new Intent(getActivity(), WishListActivity.class);
-            startActivity(book_wishlist_intent);
-        });
-        card_books.setOnClickListener(v -> {
-            Intent book_view_intent = new Intent(getActivity(), BookListActivity.class);
-            startActivity(book_view_intent);
-        });
+        card_settings = view.findViewById(R.id.card_settings);
+        card_request.setOnClickListener(v -> intentHandler(BookRequestActivity.class));
+        card_wishlist.setOnClickListener(v -> intentHandler(WishListActivity.class));
+        card_books.setOnClickListener(v -> intentHandler(BookListActivity.class));
+        card_settings.setOnClickListener(v -> intentHandler(SettingsActivity.class));
         btnSignOut.setOnClickListener(v -> AuthUI.getInstance()
                 .signOut(getActivity())
                 .addOnCompleteListener(task -> {
@@ -62,4 +56,8 @@ public final class ProfileFragment extends Fragment {
         return view;
     }
 
+    private void intentHandler(@NonNull Class<?> cls) {
+        Intent intent = new Intent(getActivity(), cls);
+        startActivity(intent);
+    }
 }

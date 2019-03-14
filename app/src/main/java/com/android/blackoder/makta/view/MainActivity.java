@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.add(R.id.fragment_container, new BorrowedFragment());
+        mFragmentTransaction.commit();
         setupBottomNavigation(navigation);
     }
 

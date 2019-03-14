@@ -41,6 +41,9 @@ dependencies {
     implementation firebaseLibs.crashylitics
     implementation firebaseLibs.firebaseCore
     implementation firebaseLibs.firebaseUiAuth
+//    Google Play Services
+    implementation googlePlayServices.auth
+
 //    Testing Libs
     testImplementation unitTestLibs.junit
     androidTestImplementation androidTestLibs.espressoContrib

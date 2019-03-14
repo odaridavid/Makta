@@ -23,7 +23,7 @@ ext {
             supportV4         : "com.android.support:support-v4:$supportLibVersion",
             supportMediaCompat: "com.android.support:support-media-compat:$supportLibVersion",
             design            : "com.android.support:design:$supportLibVersion",
-            constraintLayout : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+            constraintLayout  : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     ]
 
 //    Testing Libs
@@ -37,7 +37,7 @@ ext {
             testRunner     : "com.android.support.test:runner:$testApiVersion",
     ]
     unitTestLibs = [
-            junit : "junit:junit:$junitVersion"
+            junit: "junit:junit:$junitVersion"
     ]
 
 //    Firebase Dependencies
@@ -45,8 +45,16 @@ ext {
     firebaseCrashyliticsVersion = '2.9.8'
     firebaseUiAuthVersion = '4.3.1'
     firebaseLibs = [
-           crashylitics : "com.crashlytics.sdk.android:crashlytics:$firebaseCrashyliticsVersion",
-           firebaseCore : "com.google.firebase:firebase-core:$firebaseCoreVersion",
-           firebaseUiAuth: "com.firebaseui:firebase-ui-auth:$firebaseUiAuthVersion"
+            crashylitics  : "com.crashlytics.sdk.android:crashlytics:$firebaseCrashyliticsVersion",
+            firebaseCore  : "com.google.firebase:firebase-core:$firebaseCoreVersion",
+            firebaseUiAuth: "com.firebaseui:firebase-ui-auth:$firebaseUiAuthVersion"
     ]
+
+//    Google Play Services
+    authVersion = '16.0.1'
+    googlePlayServices = [
+            auth: "com.google.android.gms:play-services-auth:$authVersion"
+    ]
+
+
 }

@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".view.WishListActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_my_books"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

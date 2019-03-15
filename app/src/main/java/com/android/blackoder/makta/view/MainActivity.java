@@ -16,21 +16,16 @@ import com.android.blackoder.makta.view.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    FragmentTransaction mFragmentTransaction;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
-        Fragment brFrag = getSupportFragmentManager().findFragmentByTag("Borrowed");
-        if (brFrag != null && brFrag.isVisible()) {
-            mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-            mFragmentTransaction.add(R.id.fragment_container, new BorrowedFragment());
-            mFragmentTransaction.commit();
-        }
         setupBottomNavigation(navigation);
+        if (savedInstanceState == null) {
+            navigation.setSelectedItemId(R.id.navigation_borrowed); // change to whichever id should be default
+        }
+
     }
 
     private void setupBottomNavigation(BottomNavigationView navigation) {
@@ -55,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupFragment(Fragment fragment, String Tag) {
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, fragment, Tag);
-        mFragmentTransaction.commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment, Tag);
+        fragmentTransaction.commit();
     }
 
 }

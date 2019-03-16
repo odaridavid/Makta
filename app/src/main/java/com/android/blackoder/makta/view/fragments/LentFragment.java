@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.Book;
+import com.android.blackoder.makta.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,7 @@ public final class LentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lent, container, false);
         TextView tvNoLentBooks = view.findViewById(R.id.text_view_no_lent_books);
         RecyclerView rvLentBooks = view.findViewById(R.id.recycler_view_lent_books_list);
-        if (lentBooksList.isEmpty()) {
-            tvNoLentBooks.setVisibility(View.VISIBLE);
-            rvLentBooks.setVisibility(View.GONE);
-        } else {
-            rvLentBooks.setVisibility(View.VISIBLE);
-            tvNoLentBooks.setVisibility(View.GONE);
-        }
+        AppUtils.handleVisibility(lentBooksList, rvLentBooks, tvNoLentBooks);
         return view;
     }
 }

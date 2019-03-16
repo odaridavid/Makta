@@ -7,8 +7,18 @@
     tools:context=".view.WishListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_my_books"
+        android:id="@+id/recycler_view_wishlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_no_wishlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wish_list_empty"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

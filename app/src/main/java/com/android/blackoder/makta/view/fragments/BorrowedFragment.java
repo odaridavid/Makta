@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.Book;
+import com.android.blackoder.makta.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,7 @@ public final class BorrowedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_borrowed, container, false);
         TextView tvNoBorrowedBooks = view.findViewById(R.id.text_view_no_borrowed_books);
         RecyclerView rvBorrowedBooks = view.findViewById(R.id.recycler_view_borrowed_books_list);
-        if (borrowedBooksList.isEmpty()) {
-            tvNoBorrowedBooks.setVisibility(View.VISIBLE);
-            rvBorrowedBooks.setVisibility(View.GONE);
-        } else {
-            tvNoBorrowedBooks.setVisibility(View.GONE);
-            rvBorrowedBooks.setVisibility(View.VISIBLE);
-        }
+        AppUtils.handleVisibility(borrowedBooksList, rvBorrowedBooks, tvNoBorrowedBooks);
         return view;
     }
 }

@@ -91,4 +91,11 @@
     <string name="no_borrowed_books">No Borrowed Books</string>
     <string name="no_lent_books">No Lent Books</string>
     <string name="settings">Settings</string>
+    <string name="enter_author_name_hint">Enter Author Name</string>
+    <string name="enter_book_description_hint">Enter Book Description</string>
+    <string name="enter_publish_date_hint">Enter Publish Date</string>
+    <string name="add_book">Add Book</string>
+    <string name="enter_book_edition_hint">Enter Book Edition</string>
+    <string name="no_books">You Have No Books</string>
+    <string name="wish_list_empty">Wish List Empty</string>
 </resources>

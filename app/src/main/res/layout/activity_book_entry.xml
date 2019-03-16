@@ -19,13 +19,9 @@
 
             <EditText
                 android:id="@+id/edit_text_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/Theme.MaktaApp.EditText"
                 android:autofillHints="author"
-                android:hint="@string/author"
-                android:inputType="text"
-                android:singleLine="true" />
+                android:hint="@string/author" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -34,12 +30,9 @@
 
             <EditText
                 android:id="@+id/edit_text_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/Theme.MaktaApp.EditText"
                 android:autofillHints="description"
-                android:hint="@string/book_description"
-                android:inputType="text" />
+                android:hint="@string/book_description" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -48,12 +41,9 @@
 
             <EditText
                 android:id="@+id/edit_text_published_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/Theme.MaktaApp.EditText"
                 android:autofillHints="publish date"
-                android:hint="@string/publish_date"
-                android:inputType="text" />
+                android:hint="@string/publish_date" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -62,22 +52,15 @@
 
             <EditText
                 android:id="@+id/edit_text_edition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/Theme.MaktaApp.EditText"
                 android:autofillHints="edition"
-                android:hint="@string/book_edition"
-                android:inputType="text" />
+                android:hint="@string/book_edition" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/button_sign_out"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/purple_500"
             android:text="@string/add_book"
-            android:textColor="@android:color/white"
+            style="@style/Theme.MaktaApp.Button"
             app:layout_constraintTop_toBottomOf="@+id/profile_container" />
 
     </LinearLayout>

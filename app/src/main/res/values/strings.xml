@@ -98,4 +98,5 @@
     <string name="enter_book_edition_hint">Enter Book Edition</string>
     <string name="no_books">You Have No Books</string>
     <string name="wish_list_empty">Wish List Empty</string>
+    <string name="no_book_requests">No Book Requests</string>
 </resources>

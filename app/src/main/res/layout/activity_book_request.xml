@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".view.BookRequestActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_book_requests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_no_book_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_book_requests"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

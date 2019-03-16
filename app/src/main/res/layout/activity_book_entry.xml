@@ -13,41 +13,62 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/edit_text_author"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="author"
-            android:hint="@string/enter_author_name_hint"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="description"
-            android:hint="@string/enter_book_description_hint"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/edit_text_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:autofillHints="author"
+                android:hint="@string/author"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_text_published_data"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="publish date"
-            android:hint="@string/enter_publish_date_hint"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_text_edition"
+            <EditText
+                android:id="@+id/edit_text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:autofillHints="description"
+                android:hint="@string/book_description"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="edition"
-            android:hint="@string/enter_book_edition_hint"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text_published_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:autofillHints="publish date"
+                android:hint="@string/publish_date"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text_edition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:autofillHints="edition"
+                android:hint="@string/book_edition"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/button_sign_out"

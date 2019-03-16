@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view;
+package com.android.blackoder.makta.view.settings;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -18,9 +18,9 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.view.MainActivity;
 
 import java.util.List;
 

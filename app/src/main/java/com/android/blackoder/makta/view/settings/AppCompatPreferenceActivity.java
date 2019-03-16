@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view;
+package com.android.blackoder.makta.view.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

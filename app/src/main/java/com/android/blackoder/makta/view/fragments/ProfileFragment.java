@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.view.BookListActivity;
-import com.android.blackoder.makta.view.BookRequestActivity;
+import com.android.blackoder.makta.view.profile.BookListActivity;
+import com.android.blackoder.makta.view.profile.BookRequestActivity;
 import com.android.blackoder.makta.view.LoginActivity;
-import com.android.blackoder.makta.view.SettingsActivity;
-import com.android.blackoder.makta.view.WishListActivity;
+import com.android.blackoder.makta.view.settings.SettingsActivity;
+import com.android.blackoder.makta.view.profile.WishListActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

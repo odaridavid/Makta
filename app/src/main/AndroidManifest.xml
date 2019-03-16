@@ -12,29 +12,30 @@
         android:theme="@style/Theme.MaktaApp"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".view.SettingsActivity"
+            android:name=".view.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.WishListActivity"
+            android:name=".view.profile.WishListActivity"
             android:label="WishList"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.BookListActivity"
+            android:name=".view.profile.BookListActivity"
             android:label="My Books"
+            android:launchMode="singleTop"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.BookRequestActivity"
+            android:name=".view.profile.BookRequestActivity"
             android:label="Book Request"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.BookEntryActivity"
+            android:name=".view.profile.BookEntryActivity"
             android:label="Book Entry"
-            android:parentActivityName=".view.BookListActivity" />
+            android:parentActivityName=".view.profile.BookListActivity" />
         <activity
             android:name=".view.BookDetailActivity"
             android:label="Book Details"
-            android:parentActivityName=".view.BookListActivity" />
+            android:parentActivityName=".view.profile.BookListActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

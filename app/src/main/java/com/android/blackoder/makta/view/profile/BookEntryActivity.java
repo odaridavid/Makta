@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view;
+package com.android.blackoder.makta.view.profile;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

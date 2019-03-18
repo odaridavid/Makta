@@ -45,9 +45,9 @@ dependencies {
     implementation googlePlayServices.auth
 //Room
     implementation roomLibs.runtime
-    implementation roomLibs.roomAnnotations
+    annotationProcessor roomLibs.roomAnnotations
     implementation lifecycleLibs.extensions
-    implementation lifecycleLibs.lifecycleAnnotations
+    annotationProcessor lifecycleLibs.lifecycleAnnotations
 //    Testing Libs
     testImplementation unitTestLibs.junit
     androidTestImplementation androidTestLibs.espressoContrib

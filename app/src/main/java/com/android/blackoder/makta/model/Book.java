@@ -1,28 +1,40 @@
 package com.android.blackoder.makta.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created By blackcoder
  * On 25/01/19
  **/
+@Entity(tableName = "my_books_table")
 public final class Book {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long _id;
+
+    @ColumnInfo(name = "title")
+    private String title;
+    @ColumnInfo(name = "author")
     private String author;
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "published")
     private String datePublished;
-    private String imagePath;
+    @ColumnInfo(name = "edition")
     private String edition;
 
+    @Ignore
     public Book() {
     }
 
-    public Book(String author, String description, String datePublished, String imagePath, String edition) {
-        this.author = author;
-        this.description = description;
-        this.datePublished = datePublished;
-        this.imagePath = imagePath;
-        this.edition = edition;
-    }
 
-    public Book(String author, String description, String datePublished, String edition) {
+    public Book(@NonNull String author, @NonNull String title, @NonNull String description, @NonNull String datePublished, String edition) {
+        this.title = title;
         this.author = author;
         this.description = description;
         this.datePublished = datePublished;
@@ -35,6 +47,14 @@ public final class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -53,14 +73,6 @@ public final class Book {
         this.datePublished = datePublished;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public String getEdition() {
         return edition;
     }
@@ -73,9 +85,9 @@ public final class Book {
     public String toString() {
         return "Book{" +
                 "author='" + author + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", datePublished='" + datePublished + '\'' +
-                ", imagePath='" + imagePath + '\'' +
                 ", edition='" + edition + '\'' +
                 '}';
     }

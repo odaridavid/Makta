@@ -13,8 +13,6 @@ import com.google.firebase.auth.FirebaseUser;
 public interface AuthContract {
     interface Model {
         String userSignIn(FirebaseUser user);
-
-        void userSignOut();
     }
 
     interface Views {
@@ -26,6 +24,5 @@ public interface AuthContract {
 
     interface Presenter {
         void onCreate(FirebaseUser firebaseUser);
-
     }
 }

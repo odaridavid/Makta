@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.BookRequest;
+import com.android.blackoder.makta.model.entities.BookRequest;
 import com.android.blackoder.makta.utils.AppUtils;
 
 import java.util.ArrayList;

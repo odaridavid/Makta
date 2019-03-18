@@ -20,9 +20,4 @@ public final class UserAuth implements AuthContract.Model {
         return ANONYMOUS;
     }
 
-
-    @Override
-    public void userSignOut() {
-
-    }
 }

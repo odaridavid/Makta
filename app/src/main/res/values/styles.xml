@@ -20,8 +20,6 @@
     <style name="Theme.MaktaApp.EditText" parent="Base.V7.Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
         <item name="android:inputType">text</item>
         <item name="android:minHeight">60dp</item>
         <item name="android:layout_marginBottom">16dp</item>

@@ -10,7 +10,7 @@ import java.util.List;
  * Created By blackcoder
  * On 13/03/19
  **/
-public final class FirebaseUIAuthentication {
+public final class FirebaseUtils {
     public static List<AuthUI.IdpConfig> getProviders() {
         return Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),

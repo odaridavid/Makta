@@ -98,6 +98,14 @@
     <!--Book Entry Hints-->
     <string name="author">Author</string>
     <string name="book_description">Book Description</string>
-    <string name="publish_date">Publish Date</string>
+    <string name="publish_date">Select Publish Date</string>
     <string name="book_edition">Book Edition</string>
+    <string name="author_validate_error">Please Enter A Valid Author Name</string>
+    <string name="description_validate_error">Please Enter A Valid Description</string>
+    <string name="title">Title</string>
+    <string name="prompt_valid_data">Please Enter Valid Book Data</string>
+    <string name="title_validate_error">Please Enter A Valid Title</string>
+    <string name="publish_validate_error">Please Enter A Valid Publish Date</string>
+    <string name="edition_valiate_error">Please Enter A Valid Edition</string>
+    <string name="date_validate_error">Date Selected is Not Correct</string>
 </resources>

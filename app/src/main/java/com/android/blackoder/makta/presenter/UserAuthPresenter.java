@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.utils.FirebaseUIAuthentication;
+import com.android.blackoder.makta.utils.FirebaseUtils;
 import com.android.blackoder.makta.contract.AuthContract;
 import com.android.blackoder.makta.model.UserAuth;
 import com.android.blackoder.makta.view.MainActivity;
@@ -41,7 +41,7 @@ public class UserAuthPresenter implements AuthContract.Presenter {
                     .setIsSmartLockEnabled(true)
                     .setLogo(R.mipmap.ic_launcher)
                     .setTheme(R.style.Theme_MaktaApp)
-                    .setAvailableProviders(FirebaseUIAuthentication.getProviders())
+                    .setAvailableProviders(FirebaseUtils.getProviders())
                     .build();
             view.displayMainViewOnSignUp(intent);
         } else {

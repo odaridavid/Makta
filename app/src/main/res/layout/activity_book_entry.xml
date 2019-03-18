@@ -15,14 +15,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/book_entry_margins"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_input_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="@dimen/book_entry_margins">
 
                 <EditText
                     android:id="@+id/edit_text_author"
@@ -35,7 +35,7 @@
                 android:id="@+id/text_input_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="@dimen/book_entry_margins">
 
                 <EditText
                     android:id="@+id/edit_text_title"
@@ -48,7 +48,7 @@
                 android:id="@+id/text_input_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="@dimen/book_entry_margins">
 
                 <EditText
                     android:id="@+id/edit_text_description"
@@ -62,7 +62,7 @@
                 android:id="@+id/text_input_edition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="@dimen/book_entry_margins">
 
                 <EditText
                     android:id="@+id/edit_text_edition"
@@ -75,25 +75,23 @@
                 style="@style/Theme.MaktaApp.ProfileText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/book_entry_margins"
                 android:text="@string/publish_date"
-                android:textSize="18sp"
-                android:layout_margin="8dp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <DatePicker
                 android:id="@+id/date_picker_publish_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/book_entry_margins"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner" />
-
 
             <Button
                 android:id="@+id/button_add_book"
                 style="@style/Theme.MaktaApp.Button"
-                android:text="@string/add_book"
-                app:layout_constraintTop_toBottomOf="@+id/profile_container" />
+                android:text="@string/add_book" />
 
         </LinearLayout>
     </ScrollView>

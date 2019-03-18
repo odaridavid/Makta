@@ -40,7 +40,6 @@ public class BookEntryActivity extends AppCompatActivity {
                 String date = mValidator.getDate(mDatePicker);
                 if (!date.contains("Invalid")) {
                     bookDetails.add(date);
-                    Log.d("Book Entry Activity", bookDetails.toString());
                     AppUtils.clearEditText(new ArrayList<EditText>() {
                         {
                             add(etAuthor);

@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.model;
+package com.android.blackoder.makta.model.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

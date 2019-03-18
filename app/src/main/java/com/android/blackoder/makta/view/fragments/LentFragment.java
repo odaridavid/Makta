@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.Book;
+import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
 
 import java.util.ArrayList;

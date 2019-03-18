@@ -15,7 +15,7 @@ public final class Book {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long _id;
+    private long _id;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -90,5 +90,13 @@ public final class Book {
                 ", datePublished='" + datePublished + '\'' +
                 ", edition='" + edition + '\'' +
                 '}';
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 }

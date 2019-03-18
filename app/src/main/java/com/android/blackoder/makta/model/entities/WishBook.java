@@ -48,4 +48,12 @@ public class WishBook {
                 ", author='" + author + '\'' +
                 '}';
     }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
 }

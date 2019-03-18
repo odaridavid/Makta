@@ -109,4 +109,7 @@
     <string name="edition_valiate_error">Please Enter A Valid Edition</string>
     <string name="date_validate_error">Date Selected is Not Correct</string>
     <string name="success_book_added">Book Added</string>
+    <string name="published">Published:</string>
+    <string name="edition">Edition:</string>
+    <string name="description">Description:</string>
 </resources>

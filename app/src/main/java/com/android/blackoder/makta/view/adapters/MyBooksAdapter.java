@@ -19,6 +19,12 @@ import java.util.List;
 public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.BooksViewHolder> {
 
     private List<Book> mBookList;
+    private static IBookClickHandler sBookClickHandler;
+    private Book book;
+
+    public MyBooksAdapter(IBookClickHandler iBookClickHandler) {
+        sBookClickHandler = iBookClickHandler;
+    }
 
     public void setBookList(List<Book> bookList) {
         mBookList = bookList;
@@ -38,6 +44,7 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
     public void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int i) {
         if (mBookList != null) {
             Book currentBook = mBookList.get(i);
+            book = currentBook;
             booksViewHolder.tvBookTitle.setText(currentBook.getTitle());
             booksViewHolder.tvBookAuthor.setText(currentBook.getAuthor());
         }
@@ -56,7 +63,11 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
             super(itemView);
             tvBookTitle = itemView.findViewById(R.id.text_view_book_title);
             tvBookAuthor = itemView.findViewById(R.id.text_view_book_author);
+            itemView.setOnClickListener(v -> sBookClickHandler.onClick(book));
         }
     }
 
+    public interface IBookClickHandler {
+        void onClick(Book book);
+    }
 }

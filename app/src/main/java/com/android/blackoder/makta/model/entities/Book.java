@@ -6,27 +6,30 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import org.parceler.Parcel;
+
 /**
  * Created By blackcoder
  * On 25/01/19
  **/
+@Parcel
 @Entity(tableName = "my_books_table")
 public final class Book {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long _id;
+    long _id;
 
     @ColumnInfo(name = "title")
-    private String title;
+    String title;
     @ColumnInfo(name = "author")
-    private String author;
+    String author;
     @ColumnInfo(name = "description")
-    private String description;
+    String description;
     @ColumnInfo(name = "published")
-    private String datePublished;
+    String datePublished;
     @ColumnInfo(name = "edition")
-    private String edition;
+    String edition;
 
     @Ignore
     public Book() {

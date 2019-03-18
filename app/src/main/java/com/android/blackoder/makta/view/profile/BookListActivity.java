@@ -1,12 +1,10 @@
 package com.android.blackoder.makta.view.profile;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +15,15 @@ import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
+import com.android.blackoder.makta.view.BookDetailActivity;
 import com.android.blackoder.makta.view.adapters.MyBooksAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.parceler.Parcels;
 
-public class BookListActivity extends AppCompatActivity {
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
+import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
+
+public class BookListActivity extends AppCompatActivity implements MyBooksAdapter.IBookClickHandler {
 
 
     private RecyclerView rvMyBooks;
@@ -36,7 +37,7 @@ public class BookListActivity extends AppCompatActivity {
         BookViewModel mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         TextView tvNoBooks = findViewById(R.id.text_view_no_books);
         FloatingActionButton fabAddBook = findViewById(R.id.fab_add_book);
-        MyBooksAdapter lMyBooksAdapter = new MyBooksAdapter();
+        MyBooksAdapter lMyBooksAdapter = new MyBooksAdapter(this);
         mBookViewModel.getAllBooks().observe(this, books -> {
             if (books != null) {
                 AppUtils.handleVisibility(books, rvMyBooks, tvNoBooks);
@@ -59,5 +60,13 @@ public class BookListActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvMyBooks.getContext(),
                 linearLayoutManager.getOrientation());
         rvMyBooks.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void onClick(Book book) {
+        Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
+        intent.putExtra(MY_BOOK_DETAIL, Parcels.wrap(book));
+        intent.putExtra(BOOK_DETAIL_VIEW, "view");
+        startActivity(intent);
     }
 }

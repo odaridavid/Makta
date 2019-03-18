@@ -32,9 +32,27 @@
         <item name="android:background">@color/purple_500</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="BookTitle" parent="@android:style/TextAppearance.Material.Medium">
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="Theme.MaktaApp.BookDetailTextTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>

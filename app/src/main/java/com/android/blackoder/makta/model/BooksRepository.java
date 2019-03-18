@@ -14,7 +14,7 @@ import java.util.List;
  * Created By blackcoder
  * On 18/03/19
  **/
-public class BooksRepository {
+class BooksRepository {
     private MyBooksDao mMyBooksDao;
     private LiveData<List<Book>> mMyBooks;
 
@@ -28,8 +28,12 @@ public class BooksRepository {
         return mMyBooks;
     }
 
-    public void insert(Book book) {
+    void insert(Book book) {
         new insertAsyncTask(mMyBooksDao).execute(book);
+    }
+
+    void remove(Book book) {
+        new removeAsyncTask(mMyBooksDao).execute(book);
     }
 
     private static class insertAsyncTask extends AsyncTask<Book, Void, Void> {
@@ -46,4 +50,20 @@ public class BooksRepository {
             return null;
         }
     }
+
+    private static class removeAsyncTask extends AsyncTask<Book, Void, Void> {
+
+        private MyBooksDao mAsyncTaskDao;
+
+        removeAsyncTask(MyBooksDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Book... params) {
+            mAsyncTaskDao.deleteBook(params[0]);
+            return null;
+        }
+    }
+
 }

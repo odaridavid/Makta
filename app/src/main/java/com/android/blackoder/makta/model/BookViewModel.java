@@ -32,4 +32,8 @@ public final class BookViewModel extends AndroidViewModel {
         mBooksRepository.insert(book);
     }
 
+    public void remove(Book book) {
+        mBooksRepository.remove(book);
+    }
+
 }

@@ -20,7 +20,7 @@ public abstract class BooksDatabase extends RoomDatabase {
 
     private static volatile BooksDatabase INSTANCE;
 
-    static BooksDatabase getDatabase(final Context context) {
+    public static BooksDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (BooksDatabase.class) {
                 if (INSTANCE == null) {

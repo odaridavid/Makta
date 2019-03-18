@@ -3,8 +3,10 @@ package com.android.blackoder.makta.utils;
 import android.content.Context;
 import android.widget.DatePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created By blackcoder
@@ -42,5 +44,17 @@ public final class Validator {
             return "Invalid";
         }
         return datePickerMonth + "/" + datePicker.getDayOfMonth() + "/" + datePickerYear;
+    }
+
+    public List<String> insertBookData(String author, String title, String description, String edition) {
+        if (validAuthor(author) && validTitle(title) && validDescription(description) && validEdition(edition)) {
+            return new ArrayList<String>() {{
+                add(author);
+                add(title);
+                add(description);
+                add(edition);
+            }};
+        }
+        return new ArrayList<>();
     }
 }

@@ -20,7 +20,6 @@ import java.util.List;
 public class BookEntryActivity extends AppCompatActivity {
     private TextInputLayout textInputAuthor, textInputDescription, textInputEdition, textInputTitle;
     private EditText etAuthor, etDescription, etEdition, etTitle;
-    private List<String> book_details = new ArrayList<>();
     private Validator mValidator;
     private Button btnGetBookData;
     private DatePicker mDatePicker;
@@ -84,32 +83,31 @@ public class BookEntryActivity extends AppCompatActivity {
         String edition_ = edition.getText().toString();
         String title_ = title.getText().toString();
 
+        validateInputsOnView(author_, title_, description_, edition_);
+        return mValidator.insertBookData(author_, title_, description_, edition_);
+    }
+
+    private void validateInputsOnView(String author_, String title_, String description_, String edition_) {
         if (!mValidator.validAuthor(author_)) {
             textInputAuthor.setError(getString(R.string.author_validate_error));
         } else {
             textInputAuthor.setErrorEnabled(false);
-            book_details.add(author_);
         }
         if (!mValidator.validTitle(title_)) {
             textInputTitle.setError(getString(R.string.title_validate_error));
         } else {
             textInputTitle.setErrorEnabled(false);
-            book_details.add(title_);
         }
         if (!mValidator.validDescription(description_)) {
             textInputDescription.setError(getString(R.string.description_validate_error));
         } else {
             textInputDescription.setErrorEnabled(false);
-            book_details.add(description_);
         }
-
         if (!mValidator.validEdition(edition_)) {
             textInputEdition.setError(getString(R.string.edition_valiate_error));
         } else {
             textInputEdition.setErrorEnabled(false);
-            book_details.add(edition_);
         }
-        return book_details;
     }
 
 

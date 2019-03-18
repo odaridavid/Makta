@@ -1,5 +1,6 @@
 package com.android.blackoder.makta.view.profile;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.model.BookViewModel;
+import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.utils.AppExecutors;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.utils.Validator;
 
@@ -30,6 +34,7 @@ public class BookEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_entry);
         setupViews();
         mValidator = new Validator();
+        BookViewModel mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         btnGetBookData.setOnClickListener(v -> {
             List<String> bookDetails = retrieveData(etAuthor, etTitle, etDescription, etEdition);
             if (bookDetails.isEmpty() || bookDetails.size() < 4) {
@@ -39,7 +44,16 @@ public class BookEntryActivity extends AppCompatActivity {
 //                Append Date as String
                 String date = mValidator.getDate(mDatePicker);
                 if (!date.contains("Invalid")) {
-                    bookDetails.add(date);
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+                        String author = bookDetails.get(0);
+                        String title = bookDetails.get(1);
+                        String description = bookDetails.get(2);
+                        String edition = bookDetails.get(3);
+                        Book book = new Book(author, title, description, date, edition);
+                        mBookViewModel.insert(book);
+                        runOnUiThread(() -> Toast.makeText(BookEntryActivity.this, getString(R.string.success_book_added), Toast.LENGTH_LONG).show());
+
+                    });
                     AppUtils.clearEditText(new ArrayList<EditText>() {
                         {
                             add(etAuthor);

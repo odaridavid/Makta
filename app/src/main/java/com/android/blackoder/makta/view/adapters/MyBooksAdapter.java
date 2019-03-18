@@ -20,7 +20,7 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
 
     private List<Book> mBookList;
 
-    void setBookList(List<Book> bookList) {
+    public void setBookList(List<Book> bookList) {
         mBookList = bookList;
         notifyDataSetChanged();
     }

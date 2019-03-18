@@ -24,7 +24,7 @@ public final class BookViewModel extends AndroidViewModel {
         mMyBooks = mBooksRepository.getMyBooks();
     }
 
-    LiveData<List<Book>> getAllBooks() {
+    public LiveData<List<Book>> getAllBooks() {
         return mMyBooks;
     }
 

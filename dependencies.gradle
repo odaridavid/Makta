@@ -55,6 +55,13 @@ ext {
     googlePlayServices = [
             auth: "com.google.android.gms:play-services-auth:$authVersion"
     ]
-
+// Room Dependencies
+    room_version = '1.1.1'
+    roomLibs = [runtime        : "android.arch.persistence.room:runtime:$room_version",
+                roomAnnotations: "android.arch.persistence.room:compiler:$room_version"]
+// Lifecycle components
+    lifecycle_version = '1.1.1'
+    lifecycleLibs = [extensions          : "android.arch.lifecycle:extensions:$lifecycle_version",
+                     lifecycleAnnotations: "android.arch.lifecycle:compiler:$lifecycle_version"]
 
 }

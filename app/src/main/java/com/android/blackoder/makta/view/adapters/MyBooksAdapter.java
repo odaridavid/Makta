@@ -50,6 +50,11 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
         }
     }
 
+
+    Book getItemFromList(int position) {
+        return mBookList.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return mBookList != null ? mBookList.size() : 0;

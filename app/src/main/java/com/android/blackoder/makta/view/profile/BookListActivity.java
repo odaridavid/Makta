@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.BookDetailActivity;
 import com.android.blackoder.makta.view.adapters.MyBooksAdapter;
+import com.android.blackoder.makta.view.adapters.SwipeToDeleteCallback;
 
 import org.parceler.Parcels;
 
@@ -27,14 +29,14 @@ public class BookListActivity extends AppCompatActivity implements MyBooksAdapte
 
 
     private RecyclerView rvMyBooks;
-
+    private BookViewModel mBookViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         rvMyBooks = findViewById(R.id.recycler_view_my_books);
-        BookViewModel mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         TextView tvNoBooks = findViewById(R.id.text_view_no_books);
         FloatingActionButton fabAddBook = findViewById(R.id.fab_add_book);
         MyBooksAdapter lMyBooksAdapter = new MyBooksAdapter(this);
@@ -55,6 +57,9 @@ public class BookListActivity extends AppCompatActivity implements MyBooksAdapte
 
     private void setupRecyclerView(MyBooksAdapter myBooksAdapter) {
         rvMyBooks.setAdapter(myBooksAdapter);
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new SwipeToDeleteCallback(myBooksAdapter, mBookViewModel));
+        itemTouchHelper.attachToRecyclerView(rvMyBooks);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvMyBooks.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvMyBooks.getContext(),

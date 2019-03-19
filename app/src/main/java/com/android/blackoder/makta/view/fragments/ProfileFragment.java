@@ -1,10 +1,12 @@
 package com.android.blackoder.makta.view.fragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.view.LoginActivity;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 import com.android.blackoder.makta.view.profile.BookRequestActivity;
-import com.android.blackoder.makta.view.LoginActivity;
-import com.android.blackoder.makta.view.settings.SettingsActivity;
 import com.android.blackoder.makta.view.profile.WishListActivity;
+import com.android.blackoder.makta.view.settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 
 /**
@@ -83,7 +91,37 @@ public final class ProfileFragment extends Fragment {
             } else {
                 tv_email.append(mFirebaseUser.getPhoneNumber());
             }
-            tv_location.append("Unknown Location");
+            checkPermissions();
         }
+    }
+
+    private void checkPermissions() {
+        Dexter.withActivity(getActivity())
+                .withPermission(
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                      tv_location.append("Granted Location");
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        // check for permanent denial of any permission
+                        if (response.isPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                            tv_location.append("Unknown Location");
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .withErrorListener(error -> Log.e("Dexter", "There was an error: " + error.toString()))
+                .onSameThread()
+                .check();
     }
 }

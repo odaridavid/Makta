@@ -51,6 +51,8 @@ dependencies {
 //    Parceler
     implementation parcelerLibs.parceler
     annotationProcessor parcelerLibs.parcelerAnnotations
+//    Dexter
+    implementation dexterLib.runtimePermissions
 //    Testing Libs
     testImplementation unitTestLibs.junit
     androidTestImplementation androidTestLibs.espressoContrib

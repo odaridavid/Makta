@@ -44,7 +44,7 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
     public void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int i) {
         if (mBookList != null) {
             Book currentBook = mBookList.get(i);
-            book = currentBook;
+
             booksViewHolder.tvBookTitle.setText(currentBook.getTitle());
             booksViewHolder.tvBookAuthor.setText(currentBook.getAuthor());
         }
@@ -68,7 +68,10 @@ public final class MyBooksAdapter extends RecyclerView.Adapter<MyBooksAdapter.Bo
             super(itemView);
             tvBookTitle = itemView.findViewById(R.id.text_view_book_title);
             tvBookAuthor = itemView.findViewById(R.id.text_view_book_author);
-            itemView.setOnClickListener(v -> sBookClickHandler.onClick(book));
+            itemView.setOnClickListener(v -> {
+                book = mBookList.get(getPosition());
+                sBookClickHandler.onClick(book);
+            });
         }
     }
 

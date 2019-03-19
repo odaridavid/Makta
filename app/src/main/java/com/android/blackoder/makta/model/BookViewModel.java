@@ -28,6 +28,10 @@ public final class BookViewModel extends AndroidViewModel {
         return mMyBooks;
     }
 
+    public void insertFirestore(Book book) {
+        mBooksRepository.addToFirestoreDb(book);
+    }
+
     public void insert(Book book) {
         mBooksRepository.insert(book);
     }

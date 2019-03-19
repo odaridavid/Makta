@@ -23,6 +23,7 @@ public final class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback 
         this.mBookViewModel = bookViewModel;
     }
 
+
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
         return false;
@@ -30,6 +31,7 @@ public final class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback 
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+//        Remove Book From Room Database
         int position = viewHolder.getAdapterPosition();
         Book lBook = adapter.getItemFromList(position);
         AppExecutors.getInstance().diskIO().execute(() -> mBookViewModel.remove(lBook));

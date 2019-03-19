@@ -1,7 +1,5 @@
 package com.android.blackoder.makta.contract;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -10,7 +8,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created By blackcoder
  * On 13/03/19
  **/
-public interface AuthContract {
+public interface Authentication {
     interface Model {
         String userSignIn(FirebaseUser user);
     }

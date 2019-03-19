@@ -6,14 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.contract.AuthContract;
+import com.android.blackoder.makta.contract.Authentication;
 import com.android.blackoder.makta.presenter.UserAuthPresenter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import static com.android.blackoder.makta.utils.Constants.RC_SIGN_IN;
 
-public class LoginActivity extends AppCompatActivity implements AuthContract.Views {
+public class LoginActivity extends AppCompatActivity implements Authentication.Views {
     private FirebaseAuth mFirebaseAuthentication;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 

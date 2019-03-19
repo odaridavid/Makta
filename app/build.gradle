@@ -41,6 +41,7 @@ dependencies {
     implementation firebaseLibs.crashylitics
     implementation firebaseLibs.firebaseCore
     implementation firebaseLibs.firebaseUiAuth
+    implementation firebaseLibs.firestoreDb
 //    Google Play Services
     implementation googlePlayServices.auth
 //Room

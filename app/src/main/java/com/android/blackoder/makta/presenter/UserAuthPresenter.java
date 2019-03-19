@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.utils.FirebaseUtils;
-import com.android.blackoder.makta.contract.AuthContract;
+import com.android.blackoder.makta.contract.Authentication;
 import com.android.blackoder.makta.model.UserAuth;
 import com.android.blackoder.makta.view.MainActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -18,13 +18,13 @@ import static com.android.blackoder.makta.utils.Constants.ANONYMOUS;
  * Created By blackcoder
  * On 13/03/19
  **/
-public class UserAuthPresenter implements AuthContract.Presenter {
+public class UserAuthPresenter implements Authentication.Presenter {
 
-    private AuthContract.Views view;
-    private AuthContract.Model model;
+    private Authentication.Views view;
+    private Authentication.Model model;
     private Context mContext;
 
-    public UserAuthPresenter(AuthContract.Views view, Context context) {
+    public UserAuthPresenter(Authentication.Views view, Context context) {
         this.view = view;
         this.model = new UserAuth();
         mContext = context;

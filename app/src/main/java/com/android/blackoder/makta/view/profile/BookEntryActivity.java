@@ -1,32 +1,34 @@
 package com.android.blackoder.makta.view.profile;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.contract.AddBookContract;
 import com.android.blackoder.makta.model.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.presenter.AddBookPresenter;
 import com.android.blackoder.makta.utils.AppExecutors;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.utils.Validator;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookEntryActivity extends AppCompatActivity {
+public class BookEntryActivity extends AppCompatActivity implements AddBookContract.View {
     private TextInputLayout textInputAuthor, textInputDescription, textInputEdition, textInputTitle;
     private EditText etAuthor, etDescription, etEdition, etTitle;
     private Validator mValidator;
     private Button btnGetBookData;
     private DatePicker mDatePicker;
+    private BookViewModel mBookViewModel;
+    private AddBookPresenter lAddBookPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,40 +36,47 @@ public class BookEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_entry);
         setupViews();
         mValidator = new Validator();
-        BookViewModel mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
-        btnGetBookData.setOnClickListener(v -> {
-            List<String> bookDetails = retrieveData(etAuthor, etTitle, etDescription, etEdition);
-            if (bookDetails.isEmpty() || bookDetails.size() < 4) {
-                bookDetails.clear();
-                Toast.makeText(BookEntryActivity.this, getString(R.string.prompt_valid_data), Toast.LENGTH_LONG).show();
-            } else {
-//                Append Date as String
-                String date = mValidator.getDate(mDatePicker);
-                if (!date.contains("Invalid")) {
-                    AppExecutors.getInstance().diskIO().execute(() -> {
-                        String author = bookDetails.get(0);
-                        String title = bookDetails.get(1);
-                        String description = bookDetails.get(2);
-                        String edition = bookDetails.get(3);
-                        Book book = new Book(author, title, description, date, edition);
-                        mBookViewModel.insert(book);
-                        runOnUiThread(() -> Toast.makeText(BookEntryActivity.this, getString(R.string.success_book_added), Toast.LENGTH_LONG).show());
+        lAddBookPresenter = new AddBookPresenter(this);
+        mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        btnGetBookData.setOnClickListener(v -> addBookToDb());
+    }
 
-                    });
-                    AppUtils.clearEditText(new ArrayList<EditText>() {
-                        {
-                            add(etAuthor);
-                            add(etTitle);
-                            add(etDescription);
-                            add(etEdition);
-                        }
-                    });
-                } else {
-                    bookDetails.clear();
-                    Toast.makeText(BookEntryActivity.this, getString(R.string.date_validate_error), Toast.LENGTH_LONG).show();
-                }
+    public void addBookToDb() {
+        List<String> bookDetails = retrieveData(etAuthor, etTitle, etDescription, etEdition);
+        if (bookDetails.isEmpty() || bookDetails.size() < 4) {
+            bookDetails.clear();
+            Toast.makeText(BookEntryActivity.this, getString(R.string.prompt_valid_data), Toast.LENGTH_LONG).show();
+        } else {
+//                Append Date as String
+            String date = mValidator.getDate(mDatePicker);
+            if (!date.contains("Invalid")) {
+                Book book = extractData(bookDetails, date);
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    mBookViewModel.insert(book);
+                    mBookViewModel.insertFirestore(book);
+                    runOnUiThread(() -> Toast.makeText(BookEntryActivity.this, getString(R.string.success_book_added), Toast.LENGTH_LONG).show());
+                });
+                AppUtils.clearEditText(new ArrayList<EditText>() {
+                    {
+                        add(etAuthor);
+                        add(etTitle);
+                        add(etDescription);
+                        add(etEdition);
+                    }
+                });
+            } else {
+                bookDetails.clear();
+                Toast.makeText(BookEntryActivity.this, getString(R.string.date_validate_error), Toast.LENGTH_LONG).show();
             }
-        });
+        }
+    }
+
+    public Book extractData(List<String> bookDetails, String date) {
+        String author = bookDetails.get(0);
+        String title = bookDetails.get(1);
+        String description = bookDetails.get(2);
+        String edition = bookDetails.get(3);
+        return lAddBookPresenter.passBookData(author, title, description, date, edition);
     }
 
     public void setupViews() {
@@ -124,4 +133,13 @@ public class BookEntryActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void displaySuccess() {
+
+    }
+
+    @Override
+    public void displayError() {
+
+    }
 }

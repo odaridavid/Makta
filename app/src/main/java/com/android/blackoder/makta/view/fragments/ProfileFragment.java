@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,22 +46,21 @@ public final class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        Button btnSignOut = view.findViewById(R.id.button_sign_out);
-        CardView card_request, card_wishlist, card_books, card_settings;
-
+        TextView tvRequest, tvWishlist, tvBooks, tvSettings, tvSignOut;
+        tvSignOut = view.findViewById(R.id.text_view_sign_out);
         tv_username = view.findViewById(R.id.text_view_username);
         tv_email = view.findViewById(R.id.text_view_email);
         tv_location = view.findViewById(R.id.text_view_location);
         setupUserProfile();
-        card_request = view.findViewById(R.id.card_book_request);
-        card_wishlist = view.findViewById(R.id.card_wish_list);
-        card_books = view.findViewById(R.id.card_my_books);
-        card_settings = view.findViewById(R.id.card_settings);
-        card_request.setOnClickListener(v -> intentHandler(BookRequestActivity.class));
-        card_wishlist.setOnClickListener(v -> intentHandler(WishListActivity.class));
-        card_books.setOnClickListener(v -> intentHandler(BookListActivity.class));
-        card_settings.setOnClickListener(v -> intentHandler(SettingsActivity.class));
-        btnSignOut.setOnClickListener(v -> AuthUI.getInstance()
+        tvRequest = view.findViewById(R.id.text_view_book_request);
+        tvWishlist = view.findViewById(R.id.text_view_wish_list);
+        tvBooks = view.findViewById(R.id.text_view_my_books);
+        tvSettings = view.findViewById(R.id.text_view_settings);
+        tvRequest.setOnClickListener(v -> intentHandler(BookRequestActivity.class));
+        tvWishlist.setOnClickListener(v -> intentHandler(WishListActivity.class));
+        tvBooks.setOnClickListener(v -> intentHandler(BookListActivity.class));
+        tvSettings.setOnClickListener(v -> intentHandler(SettingsActivity.class));
+        tvSignOut.setOnClickListener(v -> AuthUI.getInstance()
                 .signOut(getActivity())
                 .addOnCompleteListener(task -> {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -103,7 +100,7 @@ public final class ProfileFragment extends Fragment {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                      tv_location.append("Granted Location");
+                        tv_location.append("Granted Location");
                     }
 
                     @Override

@@ -112,4 +112,5 @@
     <string name="published">Published:</string>
     <string name="edition">Edition:</string>
     <string name="description">Description:</string>
+    <string name="share_book">Share Book</string>
 </resources>

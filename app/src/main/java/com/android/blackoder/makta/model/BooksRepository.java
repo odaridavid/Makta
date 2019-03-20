@@ -8,9 +8,12 @@ import android.util.Log;
 import com.android.blackoder.makta.model.db.BooksDatabase;
 import com.android.blackoder.makta.model.db.MyBooksDao;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.utils.AppExecutors;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,28 +27,55 @@ class BooksRepository {
     private MyBooksDao mMyBooksDao;
     private LiveData<List<Book>> mMyBooks;
     private FirebaseFirestore db;
+    private FirebaseUser lFirebaseUser;
 
     BooksRepository(Application application) {
         BooksDatabase lBooksDatabase = BooksDatabase.getDatabase(application);
         mMyBooksDao = lBooksDatabase.mMyBooksDao();
         mMyBooks = mMyBooksDao.getMyBooks();
         db = FirebaseFirestore.getInstance();
+        lFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     void addToFirestoreDb(Book book) {
-        Map<String, String> bookData = new HashMap<>();
-        bookData.put("author", book.getAuthor());
-        bookData.put("title", book.getTitle());
-        bookData.put("description", book.getDescription());
-        bookData.put("date", book.getDatePublished());
-        bookData.put("edition", book.getEdition());
-        FirebaseUser lFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (lFirebaseUser != null) {
-            db.collection("users").document(lFirebaseUser.getUid()).collection("books").document(book.getTitle())
-                    .set(bookData)
+            AppExecutors.getInstance().diskIO().execute(() ->
+                    db.collection("users").document(lFirebaseUser.getUid()).collection("books").document(book.getTitle())
+                            .set(parseBookData(book))
+                            .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
+                            .addOnFailureListener(e -> Log.w(
+                                    "Book Entry", "Error adding document", e)));
+        }
+    }
+
+    private Map<String, String> parseBookData(Book book) {
+        return new HashMap<String, String>() {
+            {
+                put("author", book.getAuthor());
+                put("title", book.getTitle());
+                put("description", book.getDescription());
+                put("date", book.getDatePublished());
+                put("edition", book.getEdition());
+            }
+        };
+
+    }
+
+    List<Book> searchFromFirestore() {
+//          TODO
+        CollectionReference citiesRef = db.collection("users");
+        // Create a query against the collection.
+        Query query = citiesRef.whereEqualTo("state", "CA");
+        return null;
+    }
+
+    void insertShareCollectionFirestore(Book book) {
+        if (lFirebaseUser != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
+                    .set(parseBookData(book))
                     .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
                     .addOnFailureListener(e -> Log.w(
-                            "Book Entry", "Error adding document", e));
+                            "Book Entry", "Error adding document", e)));
         }
     }
 

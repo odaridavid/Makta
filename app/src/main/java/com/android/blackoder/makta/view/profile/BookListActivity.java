@@ -27,7 +27,6 @@ import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
 
 public class BookListActivity extends AppCompatActivity implements MyBooksAdapter.IBookClickHandler {
 
-
     private RecyclerView rvMyBooks;
     private BookViewModel mBookViewModel;
 

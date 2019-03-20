@@ -1,12 +1,16 @@
 package com.android.blackoder.makta.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.model.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 
@@ -18,6 +22,8 @@ import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
 
 public class BookDetailActivity extends AppCompatActivity {
 
+    private Book mBook;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,7 @@ public class BookDetailActivity extends AppCompatActivity {
         if (intent.getExtras() != null) {
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
                 Book book = Parcels.unwrap(intent.getParcelableExtra(MY_BOOK_DETAIL));
+                mBook = book;
                 setupBookView(book);
             } else if (intent.hasExtra(BOOK_DETAIL_REQUEST)) {
                 //TODO Add Code for book request on search
@@ -35,6 +42,27 @@ public class BookDetailActivity extends AppCompatActivity {
             Intent lIntent = new Intent(BookDetailActivity.this, BookListActivity.class);
             startActivity(lIntent);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.ic_share) {
+            shareBook(mBook);
+            Toast.makeText(BookDetailActivity.this, "Book Shared", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareBook(Book book) {
+        ViewModelProviders.of(this).get(BookViewModel.class).insertShareFirestore(book);
     }
 
     private void setupBookView(Book book) {

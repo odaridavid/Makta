@@ -30,7 +30,6 @@ class BooksRepository {
     private FirebaseFirestore db;
     private FirebaseUser lFirebaseUser;
 
-
     BooksRepository(Application application) {
         BooksDatabase lBooksDatabase = BooksDatabase.getDatabase(application);
         mMyBooksDao = lBooksDatabase.mMyBooksDao();
@@ -73,6 +72,7 @@ class BooksRepository {
     }
 
     void addBookToSharedCollection(Book book) {
+//        TODO Add Username to share collection
         if (lFirebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
                     .set(parseBookData(book))
@@ -81,6 +81,7 @@ class BooksRepository {
                             "Book Entry", "Error adding document", e)));
         }
     }
+
 
     LiveData<List<Book>> getMyBooks() {
         return mMyBooks;

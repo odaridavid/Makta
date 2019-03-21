@@ -12,12 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.databinding.FragmentProfileBinding;
 import com.android.blackoder.makta.view.LoginActivity;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 import com.android.blackoder.makta.view.profile.BookRequestActivity;
 import com.android.blackoder.makta.view.profile.WishListActivity;
-import com.android.blackoder.makta.view.settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,34 +39,21 @@ public final class ProfileFragment extends Fragment {
 
     }
 
-    private TextView tv_username, tv_email, tv_location;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        TextView tvRequest, tvWishlist, tvBooks, tvSettings, tvSignOut;
-        tvSignOut = view.findViewById(R.id.text_view_sign_out);
-        tv_username = view.findViewById(R.id.text_view_username);
-        tv_email = view.findViewById(R.id.text_view_email);
-        tv_location = view.findViewById(R.id.text_view_location);
-        setupUserProfile();
-        tvRequest = view.findViewById(R.id.text_view_book_request);
-        tvWishlist = view.findViewById(R.id.text_view_wish_list);
-        tvBooks = view.findViewById(R.id.text_view_my_books);
-        tvSettings = view.findViewById(R.id.text_view_settings);
-        tvRequest.setOnClickListener(v -> intentHandler(BookRequestActivity.class));
-        tvWishlist.setOnClickListener(v -> intentHandler(WishListActivity.class));
-        tvBooks.setOnClickListener(v -> intentHandler(BookListActivity.class));
-        tvSettings.setOnClickListener(v -> intentHandler(SettingsActivity.class));
-        tvSignOut.setOnClickListener(v -> AuthUI.getInstance()
+        FragmentProfileBinding lProfileBinding = FragmentProfileBinding.inflate(inflater, container, false);
+        setupUserProfile(lProfileBinding);
+        lProfileBinding.textViewBookRequest.setOnClickListener(v -> intentHandler(BookRequestActivity.class));
+        lProfileBinding.textViewWishList.setOnClickListener(v -> intentHandler(WishListActivity.class));
+        lProfileBinding.textViewMyBooks.setOnClickListener(v -> intentHandler(BookListActivity.class));
+        lProfileBinding.textViewSignOut.setOnClickListener(v -> AuthUI.getInstance()
                 .signOut(getActivity())
                 .addOnCompleteListener(task -> {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     Toast.makeText(getActivity(), "Signed Out", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }));
-        return view;
+        return lProfileBinding.getRoot();
     }
 
     private void intentHandler(@NonNull Class<?> cls) {
@@ -75,24 +61,26 @@ public final class ProfileFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void setupUserProfile() {
+    private void setupUserProfile(FragmentProfileBinding fragmentProfileBinding) {
         FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        TextView username = fragmentProfileBinding.textViewUsername;
+        TextView contact = fragmentProfileBinding.textViewEmail;
         if (mFirebaseUser == null) {
-            tv_username.append("David Odari");
-            tv_email.append("davidkibodari@gmail.com");
-            tv_location.append("Nairobi,Kenya");
+            username.append("Anonymous");
+            contact.append("random@host.com");
+            fragmentProfileBinding.textViewLocation.append("Nairobi,Kenya");
         } else {
-            tv_username.append(mFirebaseUser.getDisplayName());
+            username.append(mFirebaseUser.getDisplayName());
             if (!mFirebaseUser.getEmail().isEmpty()) {
-                tv_email.append(mFirebaseUser.getEmail());
+                contact.append(mFirebaseUser.getEmail());
             } else {
-                tv_email.append(mFirebaseUser.getPhoneNumber());
+                contact.append(mFirebaseUser.getPhoneNumber());
             }
-            checkPermissions();
+            checkPermissions(fragmentProfileBinding);
         }
     }
 
-    private void checkPermissions() {
+    private void checkPermissions(FragmentProfileBinding fragmentProfileBinding) {
         Dexter.withActivity(getActivity())
                 .withPermission(
                         Manifest.permission.ACCESS_COARSE_LOCATION
@@ -100,7 +88,7 @@ public final class ProfileFragment extends Fragment {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        tv_location.append("Granted Location");
+                        fragmentProfileBinding.textViewLocation.append("Granted Location");
                     }
 
                     @Override
@@ -108,7 +96,7 @@ public final class ProfileFragment extends Fragment {
                         // check for permanent denial of any permission
                         if (response.isPermanentlyDenied()) {
                             // show alert dialog navigating to Settings
-                            tv_location.append("Unknown Location");
+                            fragmentProfileBinding.textViewLocation.append("Unknown Location");
                         }
                     }
 

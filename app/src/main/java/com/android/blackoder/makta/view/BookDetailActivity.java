@@ -55,7 +55,7 @@ public class BookDetailActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.ic_share) {
             shareBook(mBook);
-            Toast.makeText(BookDetailActivity.this, "Book Shared", Toast.LENGTH_LONG).show();
+            Toast.makeText(BookDetailActivity.this, "Book Shared", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -100,7 +100,7 @@ public class BookDetailActivity extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(BookDetailActivity.this, "Np Book To Display", Toast.LENGTH_LONG).show();
+            Toast.makeText(BookDetailActivity.this, "No Book To Display", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -31,34 +31,40 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
  **/
 public final class SearchFragment extends Fragment {
 
+    private ImageButton mSearch;
+    private EditText mSearchView;
+
     public SearchFragment() {
     }
 
     private FirestoreRecyclerAdapter adapter;
-
     private RecyclerView rvSearchResults;
     private ProgressBar lProgressBar;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-        EditText searchView = rootView.findViewById(R.id.search_books);
-        ImageButton search = rootView.findViewById(R.id.btn_search);
-        lProgressBar = rootView.findViewById(R.id.progress_bar_search);
-        rvSearchResults = rootView.findViewById(R.id.recycler_view_search_results);
+        setupViews(rootView);
         LinearLayoutManager lLinearLayoutManager = new LinearLayoutManager(getActivity());
         rvSearchResults.setLayoutManager(lLinearLayoutManager);
         rvSearchResults.setHasFixedSize(true);
         FirestoreViewModel lFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
-        search.setOnClickListener(v -> {
+        mSearch.setOnClickListener(v -> {
             lProgressBar.setVisibility(View.VISIBLE);
-            String bookTitle = searchView.getText().toString();
+            String bookTitle = mSearchView.getText().toString();
             FirestoreRecyclerOptions firestoreRecyclerOptions = lFirestoreViewModel.searchBook(bookTitle.trim());
             setUpAdapter(firestoreRecyclerOptions);
         });
 
         AppUtils.recycelrViewDecoration(rvSearchResults, lLinearLayoutManager);
         return rootView;
+    }
+
+    private void setupViews(View rootView) {
+        mSearchView = rootView.findViewById(R.id.search_books);
+        mSearch = rootView.findViewById(R.id.btn_search);
+        lProgressBar = rootView.findViewById(R.id.progress_bar_search);
+        rvSearchResults = rootView.findViewById(R.id.recycler_view_search_results);
     }
 
     private void setUpAdapter(FirestoreRecyclerOptions firestoreRecyclerOptions) {
@@ -71,7 +77,6 @@ public final class SearchFragment extends Fragment {
                         .inflate(R.layout.list_item_my_books, viewGroup, false);
                 return new BooksViewHolder(view);
             }
-
 
             @Override
             protected void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int position, @NonNull Book model) {

@@ -1,6 +1,7 @@
 package com.android.blackoder.makta.view;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.databinding.ActivityMainBinding;
 import com.android.blackoder.makta.view.fragments.BorrowedFragment;
 import com.android.blackoder.makta.view.fragments.LentFragment;
 import com.android.blackoder.makta.view.fragments.ProfileFragment;
@@ -16,16 +18,17 @@ import com.android.blackoder.makta.view.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
-        setupBottomNavigation(navigation);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        BottomNavigationView lBottomNavigationView = mBinding.mainBottomNavigation;
+        setupBottomNavigation(lBottomNavigationView);
         if (savedInstanceState == null) {
-            navigation.setSelectedItemId(R.id.navigation_borrowed); // change to whichever id should be default
+            lBottomNavigationView.setSelectedItemId(R.id.navigation_borrowed); // change to whichever id should be default
         }
-
     }
 
     private void setupBottomNavigation(BottomNavigationView navigation) {
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupFragment(Fragment fragment, String Tag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, Tag);
+        fragmentTransaction.replace(mBinding.fragmentContainer.getId(), fragment, Tag);
         fragmentTransaction.commit();
     }
 

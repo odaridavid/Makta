@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -61,9 +60,7 @@ public class BookListActivity extends AppCompatActivity implements MyBooksAdapte
         itemTouchHelper.attachToRecyclerView(rvMyBooks);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvMyBooks.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvMyBooks.getContext(),
-                linearLayoutManager.getOrientation());
-        rvMyBooks.addItemDecoration(dividerItemDecoration);
+        AppUtils.recycelrViewDecoration(rvMyBooks, linearLayoutManager);
     }
 
     @Override

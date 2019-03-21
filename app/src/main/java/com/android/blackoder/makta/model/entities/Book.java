@@ -27,7 +27,7 @@ public final class Book {
     @ColumnInfo(name = "description")
     String description;
     @ColumnInfo(name = "published")
-    String datePublished;
+    String published;
     @ColumnInfo(name = "edition")
     String edition;
 
@@ -36,11 +36,11 @@ public final class Book {
     }
 
 
-    public Book(@NonNull String author, @NonNull String title, @NonNull String description, @NonNull String datePublished, String edition) {
+    public Book(@NonNull String author, @NonNull String title, @NonNull String description, @NonNull String published, String edition) {
         this.title = title;
         this.author = author;
         this.description = description;
-        this.datePublished = datePublished;
+        this.published = published;
         this.edition = edition;
     }
 
@@ -68,12 +68,12 @@ public final class Book {
         this.description = description;
     }
 
-    public String getDatePublished() {
-        return datePublished;
+    public String getPublished() {
+        return published;
     }
 
-    public void setDatePublished(String datePublished) {
-        this.datePublished = datePublished;
+    public void setPublished(String published) {
+        this.published = published;
     }
 
     public String getEdition() {
@@ -90,7 +90,7 @@ public final class Book {
                 "author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", datePublished='" + datePublished + '\'' +
+                ", datePublished='" + published + '\'' +
                 ", edition='" + edition + '\'' +
                 '}';
     }

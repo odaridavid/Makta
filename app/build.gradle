@@ -42,6 +42,7 @@ dependencies {
     implementation firebaseLibs.firebaseCore
     implementation firebaseLibs.firebaseUiAuth
     implementation firebaseLibs.firestoreDb
+    implementation firebaseLibs.firestoreUI
 //    Google Play Services
     implementation googlePlayServices.auth
 //Room

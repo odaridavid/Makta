@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.contract.AddBookContract;
 import com.android.blackoder.makta.model.BookViewModel;
+import com.android.blackoder.makta.model.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.presenter.AddBookPresenter;
 import com.android.blackoder.makta.utils.AppExecutors;
@@ -28,6 +29,7 @@ public class BookEntryActivity extends AppCompatActivity implements AddBookContr
     private Button btnGetBookData;
     private DatePicker mDatePicker;
     private BookViewModel mBookViewModel;
+    private FirestoreViewModel mFirestoreViewModel;
     private AddBookPresenter lAddBookPresenter;
 
     @Override
@@ -38,6 +40,7 @@ public class BookEntryActivity extends AppCompatActivity implements AddBookContr
         mValidator = new Validator();
         lAddBookPresenter = new AddBookPresenter(this);
         mBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        mFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         btnGetBookData.setOnClickListener(v -> addBookToDb());
     }
 
@@ -53,7 +56,7 @@ public class BookEntryActivity extends AppCompatActivity implements AddBookContr
                 Book book = extractData(bookDetails, date);
                 AppExecutors.getInstance().diskIO().execute(() -> {
                     mBookViewModel.insert(book);
-                    mBookViewModel.insertFirestore(book);
+                    mFirestoreViewModel.addBookFirestore(book);
                     runOnUiThread(() -> Toast.makeText(BookEntryActivity.this, getString(R.string.success_book_added), Toast.LENGTH_LONG).show());
                 });
                 AppUtils.clearEditText(new ArrayList<EditText>() {

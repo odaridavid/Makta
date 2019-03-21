@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.BookViewModel;
+import com.android.blackoder.makta.model.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 
@@ -62,7 +62,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void shareBook(Book book) {
-        ViewModelProviders.of(this).get(BookViewModel.class).insertShareFirestore(book);
+        ViewModelProviders.of(this).get(FirestoreViewModel.class).shareBookFirestore(book);
     }
 
     private void setupBookView(Book book) {
@@ -93,10 +93,10 @@ public class BookDetailActivity extends AppCompatActivity {
             } else {
                 lTextViewEdition.setText(book.getEdition());
             }
-            if (book.getDatePublished().isEmpty()) {
+            if (book.getPublished().isEmpty()) {
                 lTextViewPublished.setText("-");
             } else {
-                lTextViewPublished.setText(book.getDatePublished());
+                lTextViewPublished.setText(book.getPublished());
             }
 
         } else {

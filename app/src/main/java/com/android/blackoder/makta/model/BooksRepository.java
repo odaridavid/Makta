@@ -9,6 +9,7 @@ import com.android.blackoder.makta.model.db.BooksDatabase;
 import com.android.blackoder.makta.model.db.MyBooksDao;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppExecutors;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,6 +30,7 @@ class BooksRepository {
     private FirebaseFirestore db;
     private FirebaseUser lFirebaseUser;
 
+
     BooksRepository(Application application) {
         BooksDatabase lBooksDatabase = BooksDatabase.getDatabase(application);
         mMyBooksDao = lBooksDatabase.mMyBooksDao();
@@ -37,7 +39,7 @@ class BooksRepository {
         lFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    void addToFirestoreDb(Book book) {
+    void addBookToUserCollection(Book book) {
         if (lFirebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() ->
                     db.collection("users").document(lFirebaseUser.getUid()).collection("books").document(book.getTitle())
@@ -54,22 +56,23 @@ class BooksRepository {
                 put("author", book.getAuthor());
                 put("title", book.getTitle());
                 put("description", book.getDescription());
-                put("date", book.getDatePublished());
+                put("published", book.getPublished());
                 put("edition", book.getEdition());
             }
         };
-
     }
 
-    List<Book> searchFromFirestore() {
-//          TODO
-        CollectionReference citiesRef = db.collection("users");
-        // Create a query against the collection.
-        Query query = citiesRef.whereEqualTo("state", "CA");
-        return null;
+    FirestoreRecyclerOptions searchSharedCollection(String bookTitle) {
+        CollectionReference booksRef = db.collection("books");
+        Query query = booksRef
+                .whereEqualTo("title", bookTitle)
+                .limit(20);
+        return new FirestoreRecyclerOptions.Builder<Book>()
+                .setQuery(query, Book.class)
+                .build();
     }
 
-    void insertShareCollectionFirestore(Book book) {
+    void addBookToSharedCollection(Book book) {
         if (lFirebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
                     .set(parseBookData(book))

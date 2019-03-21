@@ -5,8 +5,10 @@
       <w>appspot</w>
       <w>blackoder</w>
       <w>firebase</w>
+      <w>firestore</w>
       <w>makta</w>
       <w>mobilesdk</w>
+      <w>parceler</w>
     </words>
   </dictionary>
 </component>

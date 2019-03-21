@@ -16,6 +16,18 @@
         tools:text="Text View" />
 
     <TextView
+        android:id="@+id/text_view_book_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone"
+        tools:text="Text View" />
+
+    <TextView
         android:id="@+id/text_view_book_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

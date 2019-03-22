@@ -13,15 +13,16 @@ import android.widget.Toast;
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.view.fragments.DetailFragment;
 import com.android.blackoder.makta.view.fragments.RequestFragment;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 
 import org.parceler.Parcels;
 
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
-import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -34,15 +35,17 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
             Bundle bundle = new Bundle();
-            bundle.putParcelable("book", Parcels.wrap(book));
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
+                Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
+                bundle.putParcelable("book", Parcels.wrap(book));
                 mBook = book;
                 DetailFragment lDetailFragment = new DetailFragment();
                 lDetailFragment.setArguments(bundle);
                 setupFragment(lDetailFragment, "Book Detail");
             } else if (intent.hasExtra(BOOK_DETAIL_REQUEST)) {
+                SharedBook book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
+                bundle.putParcelable("book", Parcels.wrap(book));
                 isRequest = true;
                 RequestFragment lRequestFragment = new RequestFragment();
                 lRequestFragment.setArguments(bundle);

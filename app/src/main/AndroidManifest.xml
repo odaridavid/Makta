@@ -15,10 +15,6 @@
         android:theme="@style/Theme.MaktaApp"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".view.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".view.MainActivity" />
-        <activity
             android:name=".view.profile.WishListActivity"
             android:label="WishList"
             android:parentActivityName=".view.MainActivity" />

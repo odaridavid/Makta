@@ -8,6 +8,7 @@ import android.util.Log;
 import com.android.blackoder.makta.model.db.BooksDatabase;
 import com.android.blackoder.makta.model.db.MyBooksDao;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.utils.AppExecutors;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,8 +67,8 @@ class BooksRepository {
         Query query = booksRef
                 .whereEqualTo("title", bookTitle)
                 .limit(20);
-        return new FirestoreRecyclerOptions.Builder<Book>()
-                .setQuery(query, Book.class)
+        return new FirestoreRecyclerOptions.Builder<SharedBook>()
+                .setQuery(query, SharedBook.class)
                 .build();
     }
 

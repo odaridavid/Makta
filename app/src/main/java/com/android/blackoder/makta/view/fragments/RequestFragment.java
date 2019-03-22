@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.SharedBook;
 
 import org.parceler.Parcels;
 
@@ -29,7 +31,9 @@ public class RequestFragment extends Fragment {
             setupBookView(Parcels.unwrap(getArguments().getParcelable("book")), v);
         return v;
     }
-    private void setupBookView(Book book, View view) {
+
+    private void setupBookView(SharedBook book, View view) {
+        Log.d("Request Book", String.valueOf(book));
         if (book != null) {
             TextView lTextViewTitle = view.findViewById(R.id.text_view_detail_title);
             TextView lTextViewAuthor = view.findViewById(R.id.text_view_detail_author);

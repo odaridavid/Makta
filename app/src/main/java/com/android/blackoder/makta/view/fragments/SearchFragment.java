@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
-import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.BookDetailActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -75,7 +75,7 @@ public final class SearchFragment extends Fragment {
     }
 
     private void setUpAdapter(FirestoreRecyclerOptions firestoreRecyclerOptions) {
-        adapter = new FirestoreRecyclerAdapter<Book, BooksViewHolder>(firestoreRecyclerOptions) {
+        adapter = new FirestoreRecyclerAdapter<SharedBook, BooksViewHolder>(firestoreRecyclerOptions) {
 
             @NonNull
             @Override
@@ -86,7 +86,7 @@ public final class SearchFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int position, @NonNull Book model) {
+            protected void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int position, @NonNull SharedBook model) {
                 booksViewHolder.tvBookTitle.setText(model.getTitle());
                 booksViewHolder.tvBookAuthor.setText(model.getAuthor());
                 booksViewHolder.itemView.setOnClickListener(v -> {

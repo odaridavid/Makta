@@ -21,7 +21,7 @@ import org.parceler.Parcels;
 
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
-import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            Book book = Parcels.unwrap(intent.getParcelableExtra(MY_BOOK_DETAIL));
+            Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
             Bundle bundle = new Bundle();
             bundle.putParcelable("book", Parcels.wrap(book));
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {

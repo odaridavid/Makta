@@ -22,7 +22,7 @@ import com.android.blackoder.makta.view.adapters.SwipeToDeleteCallback;
 import org.parceler.Parcels;
 
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
-import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 
 public class BookListActivity extends AppCompatActivity implements MyBooksAdapter.IBookClickHandler {
 
@@ -66,7 +66,7 @@ public class BookListActivity extends AppCompatActivity implements MyBooksAdapte
     @Override
     public void onClick(Book book) {
         Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
-        intent.putExtra(MY_BOOK_DETAIL, Parcels.wrap(book));
+        intent.putExtra(BOOK_DETAIL, Parcels.wrap(book));
         intent.putExtra(BOOK_DETAIL_VIEW, "view");
         startActivity(intent);
     }

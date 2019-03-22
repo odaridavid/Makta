@@ -1,6 +1,7 @@
 package com.android.blackoder.makta.view.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,9 +22,15 @@ import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
+import com.android.blackoder.makta.view.BookDetailActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import org.parceler.Parcels;
+
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
+import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
 
 /**
  * Created By blackcoder
@@ -82,6 +89,13 @@ public final class SearchFragment extends Fragment {
             protected void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int position, @NonNull Book model) {
                 booksViewHolder.tvBookTitle.setText(model.getTitle());
                 booksViewHolder.tvBookAuthor.setText(model.getAuthor());
+                booksViewHolder.itemView.setOnClickListener(v -> {
+                    Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                    intent.putExtra(BOOK_DETAIL, Parcels.wrap(model));
+                    intent.putExtra(BOOK_DETAIL_REQUEST, "request");
+                    startActivity(intent);
+                });
+
             }
 
             @Override
@@ -126,5 +140,6 @@ public final class SearchFragment extends Fragment {
             tvBookTitle = itemView.findViewById(R.id.text_view_book_title);
             tvBookAuthor = itemView.findViewById(R.id.text_view_book_author);
         }
+
     }
 }

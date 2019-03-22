@@ -4,8 +4,9 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-import com.android.blackoder.makta.model.books.BooksRepository;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.SharedBook;
+import com.android.blackoder.makta.model.entities.WishBook;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 /**
@@ -31,4 +32,5 @@ public class FirestoreViewModel extends AndroidViewModel {
     public void shareBookFirestore(Book book) {
         mBooksRepository.addBookToSharedCollection(book);
     }
+
 }

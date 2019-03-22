@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/ic_share"
-        android:title="@string/share_book"
+        android:id="@+id/action_wishlist"
+        android:icon="@drawable/ic_fav"
+        android:title="@string/add_to_wishlist"
         app:showAsAction="ifRoom" />
 </menu>

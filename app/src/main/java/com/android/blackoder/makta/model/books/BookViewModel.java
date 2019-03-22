@@ -5,8 +5,8 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.android.blackoder.makta.model.books.BooksRepository;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.WishBook;
 
 import java.util.List;
 
@@ -16,17 +16,19 @@ import java.util.List;
  **/
 public final class BookViewModel extends AndroidViewModel {
     private BooksRepository mBooksRepository;
-    private LiveData<List<Book>> mMyBooks;
 
     public BookViewModel(@NonNull Application application) {
         super(application);
 //        Connect ViewModel to repo
         mBooksRepository = new BooksRepository(application);
-        mMyBooks = mBooksRepository.getMyBooks();
     }
 
     public LiveData<List<Book>> getAllBooks() {
-        return mMyBooks;
+        return mBooksRepository.getMyBooks();
+    }
+
+    public LiveData<List<WishBook>> getAllWishBooks() {
+        return mBooksRepository.getWishListBooks();
     }
 
     public void insert(Book book) {
@@ -37,4 +39,15 @@ public final class BookViewModel extends AndroidViewModel {
         mBooksRepository.remove(book);
     }
 
+    public void addToWishList(WishBook wishBook) {
+        mBooksRepository.addBookToWishList(wishBook);
+    }
+
+    public void deleteFromWishList(WishBook wishBook) {
+        mBooksRepository.removeBookFromWishList(wishBook);
+    }
+
+    public boolean checkIfExists(WishBook wishBook) {
+        return mBooksRepository.checkBookExists(wishBook);
+    }
 }

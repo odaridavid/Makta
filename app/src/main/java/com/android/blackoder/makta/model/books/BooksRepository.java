@@ -7,8 +7,10 @@ import android.util.Log;
 
 import com.android.blackoder.makta.model.db.BooksDatabase;
 import com.android.blackoder.makta.model.db.MyBooksDao;
+import com.android.blackoder.makta.model.db.WishListDao;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.SharedBook;
+import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.utils.AppExecutors;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,14 +29,16 @@ import java.util.Map;
  **/
 class BooksRepository {
     private MyBooksDao mMyBooksDao;
-    private LiveData<List<Book>> mMyBooks;
+    private WishListDao mWishListDao;
     private FirebaseFirestore db;
     private FirebaseUser lFirebaseUser;
+    private List<WishBook> mExistingWishBooks;
+    private boolean isEmpty = true;
 
     BooksRepository(Application application) {
         BooksDatabase lBooksDatabase = BooksDatabase.getDatabase(application);
         mMyBooksDao = lBooksDatabase.mMyBooksDao();
-        mMyBooks = mMyBooksDao.getMyBooks();
+        mWishListDao = lBooksDatabase.mWishListDao();
         db = FirebaseFirestore.getInstance();
         lFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
@@ -62,6 +66,12 @@ class BooksRepository {
         };
     }
 
+    boolean checkBookExists(WishBook wishBook) {
+        mExistingWishBooks = mWishListDao.getExistingBooks(wishBook.getAuthor(), wishBook.getTitle());
+        Log.d("Wish Book", mExistingWishBooks.toString());
+        return mExistingWishBooks.size() > 0;
+    }
+
     FirestoreRecyclerOptions searchSharedCollection(String bookTitle) {
         CollectionReference booksRef = db.collection("books");
         Query query = booksRef
@@ -85,9 +95,21 @@ class BooksRepository {
         }
     }
 
+    void addBookToWishList(WishBook book) {
+        new insertWishlistAsyncTask(mWishListDao).execute(book);
+    }
+
+    void removeBookFromWishList(WishBook book) {
+        new deleteWishlistAsyncTask(mWishListDao).execute(book);
+    }
+
 
     LiveData<List<Book>> getMyBooks() {
-        return mMyBooks;
+        return mMyBooksDao.getMyBooks();
+    }
+
+    LiveData<List<WishBook>> getWishListBooks() {
+        return mWishListDao.getWishList();
     }
 
     void insert(Book book) {
@@ -112,6 +134,37 @@ class BooksRepository {
             return null;
         }
     }
+
+    private static class insertWishlistAsyncTask extends AsyncTask<WishBook, Void, Void> {
+
+        private WishListDao mAsyncTaskDao;
+
+        insertWishlistAsyncTask(WishListDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(WishBook... params) {
+            mAsyncTaskDao.insertBook(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteWishlistAsyncTask extends AsyncTask<WishBook, Void, Void> {
+
+        private WishListDao mAsyncTaskDao;
+
+        deleteWishlistAsyncTask(WishListDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(WishBook... params) {
+            mAsyncTaskDao.deleteBook(params[0]);
+            return null;
+        }
+    }
+
 
     private static class removeAsyncTask extends AsyncTask<Book, Void, Void> {
 

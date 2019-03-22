@@ -51,4 +51,9 @@
 
     <!--Book Request Strings-->
     <string name="request_for_book">Request For Book</string>
+    <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="book_exixsts_wishlist">Book Already In Wishlist</string>
+    <string name="book_added_wishlist">Book Added to Wishlist</string>
+    <string name="book_shared">Book Shared</string>
+    <string name="remove_from_wishlist">Removed From WishList</string>
 </resources>

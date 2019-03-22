@@ -1,10 +1,11 @@
-package com.android.blackoder.makta.model;
+package com.android.blackoder.makta.model.books;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.android.blackoder.makta.model.books.BooksRepository;
 import com.android.blackoder.makta.model.entities.Book;
 
 import java.util.List;

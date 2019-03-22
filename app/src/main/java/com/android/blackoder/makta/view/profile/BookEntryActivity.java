@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.contract.AddBookContract;
-import com.android.blackoder.makta.model.BookViewModel;
-import com.android.blackoder.makta.model.FirestoreViewModel;
+import com.android.blackoder.makta.model.books.BookViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.presenter.AddBookPresenter;
 import com.android.blackoder.makta.utils.AppExecutors;

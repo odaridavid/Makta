@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.BookViewModel;
+import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.BookDetailActivity;

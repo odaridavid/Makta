@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.model;
+package com.android.blackoder.makta.model.books;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -72,10 +72,12 @@ class BooksRepository {
     }
 
     void addBookToSharedCollection(Book book) {
-//        TODO Add Username to share collection
+        String userId = lFirebaseUser.getUid();
+        Map<String, String> sharedBook = parseBookData(book);
+        sharedBook.put("user", userId);
         if (lFirebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
-                    .set(parseBookData(book))
+                    .set(sharedBook)
                     .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
                     .addOnFailureListener(e -> Log.w(
                             "Book Entry", "Error adding document", e)));

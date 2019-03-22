@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.FirestoreViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;

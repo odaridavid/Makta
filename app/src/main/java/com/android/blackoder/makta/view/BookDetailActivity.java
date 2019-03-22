@@ -3,15 +3,18 @@ package com.android.blackoder.makta.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.FirestoreViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.view.fragments.DetailFragment;
+import com.android.blackoder.makta.view.fragments.RequestFragment;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 
 import org.parceler.Parcels;
@@ -23,6 +26,7 @@ import static com.android.blackoder.makta.utils.Constants.MY_BOOK_DETAIL;
 public class BookDetailActivity extends AppCompatActivity {
 
     private Book mBook;
+    private boolean isRequest = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +34,19 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
+            Book book = Parcels.unwrap(intent.getParcelableExtra(MY_BOOK_DETAIL));
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("book", Parcels.wrap(book));
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
-                Book book = Parcels.unwrap(intent.getParcelableExtra(MY_BOOK_DETAIL));
                 mBook = book;
-                setupBookView(book);
+                DetailFragment lDetailFragment = new DetailFragment();
+                lDetailFragment.setArguments(bundle);
+                setupFragment(lDetailFragment, "Book Detail");
             } else if (intent.hasExtra(BOOK_DETAIL_REQUEST)) {
-                //TODO Add Code for book request on search
+                isRequest = true;
+                RequestFragment lRequestFragment = new RequestFragment();
+                lRequestFragment.setArguments(bundle);
+                setupFragment(lRequestFragment, "Book Request");
             }
         } else {
             Toast.makeText(BookDetailActivity.this, "Intent Error", Toast.LENGTH_LONG).show();
@@ -44,9 +55,17 @@ public class BookDetailActivity extends AppCompatActivity {
         }
     }
 
+    public void setupFragment(Fragment fragment, String Tag) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_detail_container, fragment, Tag);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        if (!isRequest) {
+            getMenuInflater().inflate(R.menu.detail_menu, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -65,42 +84,4 @@ public class BookDetailActivity extends AppCompatActivity {
         ViewModelProviders.of(this).get(FirestoreViewModel.class).shareBookFirestore(book);
     }
 
-    private void setupBookView(Book book) {
-        if (book != null) {
-            TextView lTextViewTitle = findViewById(R.id.text_view_detail_title);
-            TextView lTextViewAuthor = findViewById(R.id.text_view_detail_author);
-            TextView lTextViewDescription = findViewById(R.id.text_view_detail_description);
-            TextView lTextViewEdition = findViewById(R.id.text_view_detail_edition);
-            TextView lTextViewPublished = findViewById(R.id.text_view_detail_published);
-            if (book.getTitle().isEmpty()) {
-                lTextViewTitle.setText("-");
-            } else {
-                lTextViewTitle.setText(book.getTitle());
-            }
-            if (book.getAuthor().isEmpty()) {
-                lTextViewAuthor.setText("-");
-            } else {
-                lTextViewAuthor.setText(book.getAuthor());
-            }
-            if (book.getDescription().isEmpty()) {
-                lTextViewDescription.setText("-");
-            } else {
-                lTextViewDescription.setText(book.getDescription());
-            }
-
-            if (book.getEdition().isEmpty()) {
-                lTextViewEdition.setText("-");
-            } else {
-                lTextViewEdition.setText(book.getEdition());
-            }
-            if (book.getPublished().isEmpty()) {
-                lTextViewPublished.setText("-");
-            } else {
-                lTextViewPublished.setText(book.getPublished());
-            }
-
-        } else {
-            Toast.makeText(BookDetailActivity.this, "No Book To Display", Toast.LENGTH_LONG).show();
-        }
-    }
 }

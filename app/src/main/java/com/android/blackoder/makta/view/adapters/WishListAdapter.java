@@ -16,7 +16,7 @@ import java.util.List;
  * Created By blackcoder
  * On 22/03/19
  **/
-public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.BooksViewHolder> {
+public class WishListAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     private List<WishBook> mBookList;
 
@@ -36,15 +36,15 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.BooksV
 
     @NonNull
     @Override
-    public WishListAdapter.BooksViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         int layout_id = R.layout.list_item_my_books;
         View view = inflater.inflate(layout_id, viewGroup, false);
-        return new BooksViewHolder(view);
+        return new BookViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int i) {
+    public void onBindViewHolder(@NonNull BookViewHolder booksViewHolder, int i) {
         if (mBookList != null) {
             WishBook currentBook = mBookList.get(i);
             booksViewHolder.tvBookTitle.setText(currentBook.getTitle());
@@ -55,18 +55,6 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.BooksV
     @Override
     public int getItemCount() {
         return mBookList != null ? mBookList.size() : 0;
-    }
-
-    class BooksViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tvBookTitle, tvBookAuthor;
-
-        BooksViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvBookTitle = itemView.findViewById(R.id.text_view_book_title);
-            tvBookAuthor = itemView.findViewById(R.id.text_view_book_author);
-
-        }
     }
 
 }

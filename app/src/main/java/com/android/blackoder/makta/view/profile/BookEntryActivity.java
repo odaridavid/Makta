@@ -20,7 +20,7 @@ import com.android.blackoder.makta.utils.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookEntryActivity extends AppCompatActivity {
+public final class BookEntryActivity extends AppCompatActivity {
 
     private Validator mValidator;
     private BookViewModel mBookViewModel;

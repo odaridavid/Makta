@@ -3,6 +3,7 @@ package com.android.blackoder.makta.utils;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 
@@ -38,9 +39,16 @@ public class AppUtils {
         }
     }
 
-    public static void recycelrViewDecoration(RecyclerView recyclerView, LinearLayoutManager layoutManager) {
+    public static void recyclerViewDecoration(RecyclerView recyclerView, LinearLayoutManager layoutManager) {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    public static void setupRecyclerView(ItemTouchHelper itemTouchHelper, RecyclerView recyclerView) {
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerViewDecoration(recyclerView, linearLayoutManager);
     }
 }

@@ -16,7 +16,7 @@ import com.android.blackoder.makta.view.fragments.ProfileFragment;
 import com.android.blackoder.makta.view.fragments.SearchFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public final class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
 
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView lBottomNavigationView = mBinding.mainBottomNavigation;
         setupBottomNavigation(lBottomNavigationView);
         if (savedInstanceState == null) {
-            lBottomNavigationView.setSelectedItemId(R.id.navigation_borrowed); // change to whichever id should be default
+            lBottomNavigationView.setSelectedItemId(R.id.navigation_borrowed);
         }
     }
 

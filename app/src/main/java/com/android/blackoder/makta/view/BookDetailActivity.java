@@ -16,8 +16,8 @@ import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
-import com.android.blackoder.makta.view.fragments.DetailFragment;
-import com.android.blackoder.makta.view.fragments.RequestFragment;
+import com.android.blackoder.makta.view.fragments.MyBookDetailFragment;
+import com.android.blackoder.makta.view.fragments.RequestDetailFragment;
 import com.android.blackoder.makta.view.profile.BookListActivity;
 
 import org.parceler.Parcels;
@@ -26,7 +26,7 @@ import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
 
-public class BookDetailActivity extends AppCompatActivity {
+public final class BookDetailActivity extends AppCompatActivity {
 
     private WishBook mWishBook;
     private boolean isRequest = false;
@@ -43,17 +43,17 @@ public class BookDetailActivity extends AppCompatActivity {
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
                 Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
                 bundle.putParcelable("book", Parcels.wrap(book));
-                DetailFragment lDetailFragment = new DetailFragment();
-                lDetailFragment.setArguments(bundle);
-                setupFragment(lDetailFragment, "Book Detail");
+                MyBookDetailFragment lMyBookDetailFragment = new MyBookDetailFragment();
+                lMyBookDetailFragment.setArguments(bundle);
+                setupFragment(lMyBookDetailFragment, "Book Detail");
             } else if (intent.hasExtra(BOOK_DETAIL_REQUEST)) {
                 isRequest = true;
                 SharedBook book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
                 mWishBook = new WishBook(book.getTitle(), book.getAuthor());
                 bundle.putParcelable("book", Parcels.wrap(book));
-                RequestFragment lRequestFragment = new RequestFragment();
-                lRequestFragment.setArguments(bundle);
-                setupFragment(lRequestFragment, "Book Request");
+                RequestDetailFragment lRequestDetailFragment = new RequestDetailFragment();
+                lRequestDetailFragment.setArguments(bundle);
+                setupFragment(lRequestDetailFragment, "Book Request");
             }
         } else {
             Toast.makeText(BookDetailActivity.this, "Intent Error", Toast.LENGTH_LONG).show();

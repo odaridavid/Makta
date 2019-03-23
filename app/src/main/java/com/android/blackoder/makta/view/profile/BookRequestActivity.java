@@ -17,7 +17,7 @@ import com.android.blackoder.makta.model.entities.BookRequests;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
-public class BookRequestActivity extends AppCompatActivity {
+public final class BookRequestActivity extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -50,13 +50,14 @@ public class BookRequestActivity extends AppCompatActivity {
             public void onDataChanged() {
                 super.onDataChanged();
                 if (!(super.getItemCount() > 0)) {
+                    tvNoBookRequests.setVisibility(View.VISIBLE);
                     tvNoBookRequests.setText(getString(R.string.no_book_requests));
                 }
                 rvBookRequests.setAdapter(this);
                 notifyDataSetChanged();
             }
         };
-        AppUtils.recycelrViewDecoration(rvBookRequests, lLinearLayoutManager);
+        AppUtils.recyclerViewDecoration(rvBookRequests, lLinearLayoutManager);
     }
 
     class BookRequestsViewHolder extends RecyclerView.ViewHolder {

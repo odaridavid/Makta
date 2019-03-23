@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created By blackcoder
  * On 20/03/19
  **/
-public class FirestoreViewModel extends AndroidViewModel {
+public final class FirestoreViewModel extends AndroidViewModel {
     private BooksRepository mBooksRepository;
     private FirebaseUser lFirebaseUser;
 

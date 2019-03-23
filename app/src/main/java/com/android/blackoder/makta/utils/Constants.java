@@ -11,4 +11,6 @@ public final class Constants {
     public static final String BOOK_DETAIL = "my_book";
     public static final String BOOK_DETAIL_VIEW = "detail_view";
     public static final String BOOK_DETAIL_REQUEST = "detail_request";
+    public static final String REQUEST_PERSISTENCE_KEY = "requests";
+    public static final String MYBOOKS_PERSISTENCE_KEY = "my_books";
 }

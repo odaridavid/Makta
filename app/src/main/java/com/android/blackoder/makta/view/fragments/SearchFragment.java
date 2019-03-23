@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
@@ -23,6 +22,7 @@ import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.BookDetailActivity;
+import com.android.blackoder.makta.view.adapters.BookViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -40,13 +40,12 @@ public final class SearchFragment extends Fragment {
 
     private ImageButton mSearch;
     private EditText mSearchView;
-
-    public SearchFragment() {
-    }
-
     private FirestoreRecyclerAdapter adapter;
     private RecyclerView rvSearchResults;
     private ProgressBar lProgressBar;
+
+    public SearchFragment() {
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public final class SearchFragment extends Fragment {
             setUpAdapter(firestoreRecyclerOptions);
         });
 
-        AppUtils.recycelrViewDecoration(rvSearchResults, lLinearLayoutManager);
+        AppUtils.recyclerViewDecoration(rvSearchResults, lLinearLayoutManager);
         return rootView;
     }
 
@@ -75,18 +74,19 @@ public final class SearchFragment extends Fragment {
     }
 
     private void setUpAdapter(FirestoreRecyclerOptions firestoreRecyclerOptions) {
-        adapter = new FirestoreRecyclerAdapter<SharedBook, BooksViewHolder>(firestoreRecyclerOptions) {
+        adapter = new FirestoreRecyclerAdapter<SharedBook, BookViewHolder>(firestoreRecyclerOptions) {
 
             @NonNull
             @Override
-            public BooksViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext())
+            public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View view = LayoutInflater
+                        .from(viewGroup.getContext())
                         .inflate(R.layout.list_item_my_books, viewGroup, false);
-                return new BooksViewHolder(view);
+                return new BookViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull BooksViewHolder booksViewHolder, int position, @NonNull SharedBook model) {
+            protected void onBindViewHolder(@NonNull BookViewHolder booksViewHolder, int position, @NonNull SharedBook model) {
                 booksViewHolder.tvBookTitle.setText(model.getTitle());
                 booksViewHolder.tvBookAuthor.setText(model.getAuthor());
                 booksViewHolder.itemView.setOnClickListener(v -> {
@@ -129,17 +129,5 @@ public final class SearchFragment extends Fragment {
         if (adapter != null) {
             adapter.stopListening();
         }
-    }
-
-    class BooksViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tvBookTitle, tvBookAuthor;
-
-        BooksViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvBookTitle = itemView.findViewById(R.id.text_view_book_title);
-            tvBookAuthor = itemView.findViewById(R.id.text_view_book_author);
-        }
-
     }
 }

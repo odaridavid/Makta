@@ -23,30 +23,28 @@ import org.parceler.Parcels;
  * On 22/03/19
  **/
 
-public class RequestFragment extends Fragment {
+public final class RequestDetailFragment extends Fragment {
 
     private FirestoreViewModel mFirestoreViewModel;
-    private Button mBtnRequest;
     private String mUid;
 
-    @Nullable
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail_request, container, false);
-        mBtnRequest = v.findViewById(R.id.button_request_book);
+        Button lBtnRequest = v.findViewById(R.id.button_request_book);
 
         mFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         if (getArguments() != null) {
             SharedBook lSharedBook = Parcels.unwrap(getArguments().getParcelable("book"));
-
             mUid = mFirestoreViewModel.getlFirebaseUser().getUid();
             if (lSharedBook != null && lSharedBook.getUser().equals(mUid)) {
-                mBtnRequest.setEnabled(false);
-                mBtnRequest.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-                mBtnRequest.setText(getString(R.string.from_peronal_collection));
+                lBtnRequest.setEnabled(false);
+                lBtnRequest.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+                lBtnRequest.setText(getString(R.string.from_peronal_collection));
             }
             setupBookView(lSharedBook, v);
-            mBtnRequest.setOnClickListener(v1 -> {
+            lBtnRequest.setOnClickListener(v1 -> {
                 if (lSharedBook != null)
                     sendRequest(lSharedBook.getUser(), lSharedBook.getTitle());
             });

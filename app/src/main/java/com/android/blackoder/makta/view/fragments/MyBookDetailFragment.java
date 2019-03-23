@@ -19,7 +19,7 @@ import org.parceler.Parcels;
  * Created By blackcoder
  * On 22/03/19
  **/
-public class DetailFragment extends Fragment {
+public final class MyBookDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

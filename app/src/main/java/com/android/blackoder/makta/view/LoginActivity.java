@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static com.android.blackoder.makta.utils.Constants.RC_SIGN_IN;
 
-public class LoginActivity extends AppCompatActivity implements Authentication.Views {
+public final class LoginActivity extends AppCompatActivity implements Authentication.Views {
     private FirebaseAuth mFirebaseAuthentication;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 

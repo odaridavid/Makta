@@ -27,7 +27,7 @@ import java.util.Map;
  * Created By blackcoder
  * On 18/03/19
  **/
-class BooksRepository {
+final class BooksRepository {
     private MyBooksDao mMyBooksDao;
     private WishListDao mWishListDao;
     private FirebaseFirestore db;

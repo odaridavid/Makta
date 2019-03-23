@@ -14,7 +14,6 @@ import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.utils.AppExecutors;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,7 +31,6 @@ class BooksRepository {
     private MyBooksDao mMyBooksDao;
     private WishListDao mWishListDao;
     private FirebaseFirestore db;
-    private FirebaseUser lFirebaseUser;
 
 
     BooksRepository(Application application) {
@@ -40,13 +38,12 @@ class BooksRepository {
         mMyBooksDao = lBooksDatabase.mMyBooksDao();
         mWishListDao = lBooksDatabase.mWishListDao();
         db = FirebaseFirestore.getInstance();
-        lFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    void addBookToUserCollection(Book book) {
-        if (lFirebaseUser != null) {
+    void addBookToUserCollection(Book book, FirebaseUser firebaseUser) {
+        if (firebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() ->
-                    db.collection("users").document(lFirebaseUser.getUid()).collection("books").document(book.getTitle())
+                    db.collection("users").document(firebaseUser.getUid()).collection("books").document(book.getTitle())
                             .set(parseBookData(book))
                             .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
                             .addOnFailureListener(e -> Log.w(
@@ -72,11 +69,10 @@ class BooksRepository {
         return lExistingWishBooks.size() > 0;
     }
 
-    FirestoreRecyclerOptions loadBookRequests() {
-        Log.d("REQUEST", "INIT");
+    FirestoreRecyclerOptions loadBookRequests(FirebaseUser firebaseUser) {
         Query lQuery = db
                 .collection("requests")
-                .document(lFirebaseUser.getUid())
+                .document(firebaseUser.getUid())
                 .collection("books");
 
         return new FirestoreRecyclerOptions.Builder<BookRequests>()
@@ -95,34 +91,36 @@ class BooksRepository {
                 .build();
     }
 
-    void borrowBook(String owner, String title) {
+
+    void borrowBook(String owner, String title, FirebaseUser firebaseUser) {
         Map<String, String> borrowPayload = new HashMap<String, String>() {
             {
                 put("body", "I would love to borrow " + title + " from your book collection");
-                put("requester", lFirebaseUser.getDisplayName());
+                put("requester", firebaseUser.getDisplayName());
             }
         };
-        if (lFirebaseUser != null) {
-            AppExecutors.getInstance().diskIO().execute(() ->
-                    db.collection("requests").document(owner).collection("books").document(title + "-" + lFirebaseUser.getDisplayName())
-                            .set(borrowPayload)
-                            .addOnSuccessListener(aVoid -> Log.d("Book Request :", "SUCCESS"))
-                            .addOnFailureListener(e -> Log.w(
-                                    "Book Entry", "Error adding document", e)));
-        }
+        AppExecutors.getInstance().diskIO().execute(() ->
+                db.collection("requests")
+                        .document(owner).collection("books")
+                        .document(title + "-" + firebaseUser.getDisplayName())
+                        .set(borrowPayload)
+                        .addOnSuccessListener(aVoid -> Log.d("Book Request :", "SUCCESS"))
+                        .addOnFailureListener(e -> Log.w(
+                                "Book Entry", "Error adding document", e)));
+
+
     }
 
-    void addBookToSharedCollection(Book book) {
-        String userId = lFirebaseUser.getUid();
-        Map<String, String> sharedBook = parseBookData(book);
-        sharedBook.put("user", userId);
-        if (lFirebaseUser != null) {
-            AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
-                    .set(sharedBook)
-                    .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
-                    .addOnFailureListener(e -> Log.w(
-                            "Book Entry", "Error adding document", e)));
-        }
+    void addBookToSharedCollection(Book book, FirebaseUser firebaseUser) {
+        String userId = firebaseUser.getUid();
+        Map<String, String> sharedBookPayload = parseBookData(book);
+        sharedBookPayload.put("user", userId);
+        AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
+                .set(sharedBookPayload)
+                .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
+                .addOnFailureListener(e -> Log.w(
+                        "Book Entry", "Error adding document", e)));
+
     }
 
     void addBookToWishList(WishBook book) {

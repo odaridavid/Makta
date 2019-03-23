@@ -1,5 +1,7 @@
 package com.android.blackoder.makta.contract;
 
+import com.android.blackoder.makta.model.books.BookViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 
 /**
@@ -9,11 +11,8 @@ import com.android.blackoder.makta.model.entities.Book;
 public interface AddBookContract {
     interface Presenter {
         Book passBookData(String author, String title, String description, String date, String edition);
+
+        void addBooksToModels(BookViewModel bookViewModel, FirestoreViewModel firestoreViewModel, Book book);
     }
 
-    interface View {
-        void displaySuccess();
-
-        void displayError();
-    }
 }

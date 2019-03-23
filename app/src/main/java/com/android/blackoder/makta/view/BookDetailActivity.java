@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.BookViewModel;
-import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
@@ -29,7 +28,6 @@ import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
 
 public class BookDetailActivity extends AppCompatActivity {
 
-    private Book mBook;
     private WishBook mWishBook;
     private boolean isRequest = false;
     private BookViewModel mBookViewModel;
@@ -45,15 +43,14 @@ public class BookDetailActivity extends AppCompatActivity {
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
                 Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
                 bundle.putParcelable("book", Parcels.wrap(book));
-                mBook = book;
                 DetailFragment lDetailFragment = new DetailFragment();
                 lDetailFragment.setArguments(bundle);
                 setupFragment(lDetailFragment, "Book Detail");
             } else if (intent.hasExtra(BOOK_DETAIL_REQUEST)) {
+                isRequest = true;
                 SharedBook book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
                 mWishBook = new WishBook(book.getTitle(), book.getAuthor());
                 bundle.putParcelable("book", Parcels.wrap(book));
-                isRequest = true;
                 RequestFragment lRequestFragment = new RequestFragment();
                 lRequestFragment.setArguments(bundle);
                 setupFragment(lRequestFragment, "Book Request");
@@ -73,19 +70,14 @@ public class BookDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isRequest) getMenuInflater().inflate(R.menu.detail_menu, menu);
-        else getMenuInflater().inflate(R.menu.detail_shared_menu, menu);
+        if (isRequest) getMenuInflater().inflate(R.menu.detail_request_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.action_share) {
-            ViewModelProviders.of(this).get(FirestoreViewModel.class).shareBookFirestore(mBook);
-            Toast.makeText(BookDetailActivity.this, getString(R.string.book_shared), Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (itemId == R.id.action_wishlist) {
+        if (itemId == R.id.action_wishlist) {
             new CheckBookExistsAsyncTask(mBookViewModel, bookExists -> {
                 if (bookExists) {
 //                    TODO Not deleting fix using detail view

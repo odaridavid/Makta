@@ -45,7 +45,7 @@ public final class Validator {
         return datePickerMonth + "/" + datePicker.getDayOfMonth() + "/" + datePickerYear;
     }
 
-    public List<String> insertBookData(String author, String title, String description, String edition) {
+    public List<String> buildBookInfoAsList(String author, String title, String description, String edition) {
         if (validAuthor(author) && validTitle(title) && validDescription(description) && validEdition(edition)) {
             return new ArrayList<String>() {{
                 add(author);

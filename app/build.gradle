@@ -53,9 +53,10 @@ dependencies {
     annotationProcessor roomLibs.roomAnnotations
     implementation lifecycleLibs.extensions
     annotationProcessor lifecycleLibs.lifecycleAnnotations
-//    Parceler
+//    3rd Party
     implementation parcelerLibs.parceler
     annotationProcessor parcelerLibs.parcelerAnnotations
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.1'
 //    Dexter
     implementation dexterLib.runtimePermissions
 //    Testing Libs

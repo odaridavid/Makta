@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view.profile;
+package com.android.blackoder.makta.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -32,7 +32,7 @@ public final class WishListActivity extends AppCompatActivity {
             }
         });
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(lWishListAdapter, lBookViewModel));
+                ItemTouchHelper(new SwipeToDeleteCallback(lWishListAdapter, lBookViewModel, WishListActivity.this));
         AppUtils.setupRecyclerView(itemTouchHelper, lRecyclerView);
         lRecyclerView.setAdapter(lWishListAdapter);
     }

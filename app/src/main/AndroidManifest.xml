@@ -25,26 +25,26 @@
         </receiver>
 
         <activity
-            android:name=".view.profile.WishListActivity"
+            android:name=".view.WishListActivity"
             android:label="WishList"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.profile.BookListActivity"
+            android:name=".view.BookListActivity"
             android:label="My Books"
             android:launchMode="singleTop"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.profile.BookRequestActivity"
+            android:name=".view.BookRequestActivity"
             android:label="Book Request"
             android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name=".view.profile.BookEntryActivity"
+            android:name=".view.BookEntryActivity"
             android:label="Book Entry"
-            android:parentActivityName=".view.profile.BookListActivity" />
+            android:parentActivityName=".view.BookListActivity" />
         <activity
             android:name=".view.BookDetailActivity"
             android:label="Book Details"
-            android:parentActivityName=".view.profile.BookListActivity" />
+            android:parentActivityName=".view.BookListActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

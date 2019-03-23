@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view.profile;
+package com.android.blackoder.makta.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
-import com.android.blackoder.makta.view.BookDetailActivity;
 import com.android.blackoder.makta.view.adapters.MyBooksAdapter;
 import com.android.blackoder.makta.view.adapters.SwipeToDeleteCallback;
 
@@ -44,7 +43,7 @@ public final class BookListActivity extends AppCompatActivity implements MyBooks
             }
         });
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(lMyBooksAdapter, lBookViewModel));
+                ItemTouchHelper(new SwipeToDeleteCallback(lMyBooksAdapter, lBookViewModel, BookListActivity.this));
         AppUtils.setupRecyclerView(itemTouchHelper, rvMyBooks);
         rvMyBooks.setAdapter(lMyBooksAdapter);
         fabAddBook.setOnClickListener(v -> {

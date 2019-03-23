@@ -1,4 +1,4 @@
-package com.android.blackoder.makta.view.profile;
+package com.android.blackoder.makta.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;

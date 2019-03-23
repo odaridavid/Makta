@@ -66,7 +66,7 @@ ext {
     lifecycle_version = '1.1.1'
     lifecycleLibs = [extensions          : "android.arch.lifecycle:extensions:$lifecycle_version",
                      lifecycleAnnotations: "android.arch.lifecycle:compiler:$lifecycle_version"]
-//3rd party parceler
+//3rd party
     parceler_version = '1.1.12'
     parcelerLibs = [
             parceler           : "org.parceler:parceler-api:$parceler_version",
@@ -76,4 +76,5 @@ ext {
     dexterLib = [
             runtimePermissions: "com.karumi:dexter:$dexter_version"
     ]
+
 }

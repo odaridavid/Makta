@@ -56,4 +56,5 @@
     <string name="book_added_wishlist">Book Added to Wishlist</string>
     <string name="book_shared">Book Shared</string>
     <string name="remove_from_wishlist">Removed From WishList</string>
+    <string name="request_sent">Request Sent</string>
 </resources>

@@ -106,13 +106,15 @@ public class BookDetailActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         /* Called before menu is created */
-        MenuItem lMenuItem = menu.findItem(R.id.action_wishlist);
-        new CheckBookExistsAsyncTask(mBookViewModel, bookExists -> {
-            if (!bookExists) {
-                lMenuItem.setIcon(R.drawable.ic_fav_unfilled);
-            }
-        }).execute(mWishBook);
+        if (isRequest) {
+            MenuItem lMenuItem = menu.findItem(R.id.action_wishlist);
 
+            new CheckBookExistsAsyncTask(mBookViewModel, bookExists -> {
+                if (!bookExists) {
+                    lMenuItem.setIcon(R.drawable.ic_fav_unfilled);
+                }
+            }).execute(mWishBook);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 

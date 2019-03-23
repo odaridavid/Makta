@@ -9,6 +9,7 @@ import com.android.blackoder.makta.model.db.BooksDatabase;
 import com.android.blackoder.makta.model.db.MyBooksDao;
 import com.android.blackoder.makta.model.db.WishListDao;
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.BookRequests;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.utils.AppExecutors;
@@ -32,8 +33,7 @@ class BooksRepository {
     private WishListDao mWishListDao;
     private FirebaseFirestore db;
     private FirebaseUser lFirebaseUser;
-    private List<WishBook> mExistingWishBooks;
-    private boolean isEmpty = true;
+
 
     BooksRepository(Application application) {
         BooksDatabase lBooksDatabase = BooksDatabase.getDatabase(application);
@@ -67,10 +67,23 @@ class BooksRepository {
     }
 
     boolean checkBookExists(WishBook wishBook) {
-        mExistingWishBooks = mWishListDao.getExistingBooks(wishBook.getAuthor(), wishBook.getTitle());
-        Log.d("Wish Book", mExistingWishBooks.toString());
-        return mExistingWishBooks.size() > 0;
+        List<WishBook> lExistingWishBooks = mWishListDao.getExistingBooks(wishBook.getAuthor(), wishBook.getTitle());
+        Log.d("Wish Book", lExistingWishBooks.toString());
+        return lExistingWishBooks.size() > 0;
     }
+
+    FirestoreRecyclerOptions loadBookRequests() {
+        Log.d("REQUEST", "INIT");
+        Query lQuery = db
+                .collection("requests")
+                .document(lFirebaseUser.getUid())
+                .collection("books");
+
+        return new FirestoreRecyclerOptions.Builder<BookRequests>()
+                .setQuery(lQuery, BookRequests.class)
+                .build();
+    }
+
 
     FirestoreRecyclerOptions searchSharedCollection(String bookTitle) {
         CollectionReference booksRef = db.collection("books");
@@ -80,6 +93,23 @@ class BooksRepository {
         return new FirestoreRecyclerOptions.Builder<SharedBook>()
                 .setQuery(query, SharedBook.class)
                 .build();
+    }
+
+    void borrowBook(String owner, String title) {
+        Map<String, String> borrowPayload = new HashMap<String, String>() {
+            {
+                put("body", "I would love to borrow " + title + " from your book collection");
+                put("requester", lFirebaseUser.getDisplayName());
+            }
+        };
+        if (lFirebaseUser != null) {
+            AppExecutors.getInstance().diskIO().execute(() ->
+                    db.collection("requests").document(owner).collection("books").document(title + "-" + lFirebaseUser.getDisplayName())
+                            .set(borrowPayload)
+                            .addOnSuccessListener(aVoid -> Log.d("Book Request :", "SUCCESS"))
+                            .addOnFailureListener(e -> Log.w(
+                                    "Book Entry", "Error adding document", e)));
+        }
     }
 
     void addBookToSharedCollection(Book book) {

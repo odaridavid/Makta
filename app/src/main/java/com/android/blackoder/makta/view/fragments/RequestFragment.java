@@ -1,5 +1,6 @@
 package com.android.blackoder.makta.view.fragments;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,11 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.SharedBook;
 
 import org.parceler.Parcels;
@@ -27,9 +29,22 @@ public class RequestFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail_request, container, false);
-        if (getArguments() != null)
-            setupBookView(Parcels.unwrap(getArguments().getParcelable("book")), v);
+        Button btnRequest = v.findViewById(R.id.button_request_book);
+        if (getArguments() != null) {
+            SharedBook lSharedBook = Parcels.unwrap(getArguments().getParcelable("book"));
+            setupBookView(lSharedBook, v);
+            btnRequest.setOnClickListener(v1 -> {
+                if (lSharedBook != null)
+                    sendRequest(lSharedBook.getUser(), lSharedBook.getTitle());
+            });
+        }
         return v;
+    }
+
+    private void sendRequest(String user, String title) {
+        FirestoreViewModel lFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
+        lFirestoreViewModel.borrowBook(user, title);
+        Toast.makeText(getContext(), getString(R.string.request_sent), Toast.LENGTH_LONG).show();
     }
 
     private void setupBookView(SharedBook book, View view) {

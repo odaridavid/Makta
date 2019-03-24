@@ -12,7 +12,7 @@ import com.android.blackoder.makta.R;
  * On 24/03/19
  **/
 public class BookStateViewHolder extends RecyclerView.ViewHolder {
-    TextView tvTitle, tvSub;
+    public TextView tvTitle, tvSub;
 
     public BookStateViewHolder(@NonNull View itemView) {
         super(itemView);

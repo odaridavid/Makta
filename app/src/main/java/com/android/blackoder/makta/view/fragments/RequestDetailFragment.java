@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.SharedBook;
+import com.android.blackoder.makta.utils.AppUtils;
 
 import org.parceler.Parcels;
 
@@ -43,7 +43,7 @@ public final class RequestDetailFragment extends Fragment {
                 lBtnRequest.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                 lBtnRequest.setText(getString(R.string.from_peronal_collection));
             }
-            setupBookView(lSharedBook, v);
+            AppUtils.bindBookView(lSharedBook, v);
             lBtnRequest.setOnClickListener(v1 -> {
                 if (lSharedBook != null)
                     sendRequest(lSharedBook.getUser(), lSharedBook.getTitle());
@@ -61,42 +61,4 @@ public final class RequestDetailFragment extends Fragment {
         }
     }
 
-    private void setupBookView(SharedBook book, View view) {
-        if (book != null) {
-            TextView lTextViewTitle = view.findViewById(R.id.text_view_detail_title);
-            TextView lTextViewAuthor = view.findViewById(R.id.text_view_detail_author);
-            TextView lTextViewDescription = view.findViewById(R.id.text_view_detail_description);
-            TextView lTextViewEdition = view.findViewById(R.id.text_view_detail_edition);
-            TextView lTextViewPublished = view.findViewById(R.id.text_view_detail_published);
-            if (book.getTitle().isEmpty()) {
-                lTextViewTitle.setText("-");
-            } else {
-                lTextViewTitle.setText(book.getTitle());
-            }
-            if (book.getAuthor().isEmpty()) {
-                lTextViewAuthor.setText("-");
-            } else {
-                lTextViewAuthor.setText(book.getAuthor());
-            }
-            if (book.getDescription().isEmpty()) {
-                lTextViewDescription.setText("-");
-            } else {
-                lTextViewDescription.setText(book.getDescription());
-            }
-
-            if (book.getEdition().isEmpty()) {
-                lTextViewEdition.setText("-");
-            } else {
-                lTextViewEdition.setText(book.getEdition());
-            }
-            if (book.getPublished().isEmpty()) {
-                lTextViewPublished.setText("-");
-            } else {
-                lTextViewPublished.setText(book.getPublished());
-            }
-
-        } else {
-            Toast.makeText(getContext(), "No Book To Display", Toast.LENGTH_LONG).show();
-        }
-    }
 }

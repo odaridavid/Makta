@@ -14,7 +14,7 @@ import org.parceler.Parcel;
  **/
 @Parcel
 @Entity(tableName = "my_books_table")
-public final class Book {
+public final class Book implements IBook {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -44,42 +44,52 @@ public final class Book {
         this.edition = edition;
     }
 
+    @Override
     public String getAuthor() {
         return author;
     }
 
+    @Override
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public String getPublished() {
         return published;
     }
 
+    @Override
     public void setPublished(String published) {
         this.published = published;
     }
 
+    @Override
     public String getEdition() {
         return edition;
     }
 
+    @Override
     public void setEdition(String edition) {
         this.edition = edition;
     }

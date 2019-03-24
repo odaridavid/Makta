@@ -1,6 +1,5 @@
 package com.android.blackoder.makta.model.entities;
 
-import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
 import org.parceler.Parcel;
@@ -10,7 +9,7 @@ import org.parceler.Parcel;
  * On 16/03/19
  **/
 @Parcel
-public final class SharedBook {
+public final class SharedBook implements IBook {
 
     String title;
     String author;
@@ -19,8 +18,8 @@ public final class SharedBook {
     String edition;
     String user;
 
-    @Ignore
-    public SharedBook() {
+
+    SharedBook() {
     }
 
 
@@ -33,42 +32,52 @@ public final class SharedBook {
         this.user = user;
     }
 
+    @Override
     public String getAuthor() {
         return author;
     }
 
+    @Override
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public String getPublished() {
         return published;
     }
 
+    @Override
     public void setPublished(String published) {
         this.published = published;
     }
 
+    @Override
     public String getEdition() {
         return edition;
     }
 
+    @Override
     public void setEdition(String edition) {
         this.edition = edition;
     }

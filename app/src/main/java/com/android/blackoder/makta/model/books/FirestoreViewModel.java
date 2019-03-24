@@ -56,6 +56,12 @@ public final class FirestoreViewModel extends AndroidViewModel {
     public FirestoreRecyclerOptions loadBookRequests() {
         return mBooksRepository.loadBookRequests(getFirebaseUser());
     }
+    public FirestoreRecyclerOptions loadBorrowedBooks() {
+        return mBooksRepository.loadBorrowedBooks(getFirebaseUser());
+    }
+    public FirestoreRecyclerOptions loadLentOutBooks() {
+        return mBooksRepository.loadLentOutBooks(getFirebaseUser());
+    }
 
     public void addToLentOutBooks(BookRequests bookRequests) {
         mBooksRepository.addBookToLentOut(bookRequests, getFirebaseUser());

@@ -11,6 +11,8 @@ import com.android.blackoder.makta.model.db.MyBooksDao;
 import com.android.blackoder.makta.model.db.WishListDao;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.BookRequests;
+import com.android.blackoder.makta.model.entities.Borrowed;
+import com.android.blackoder.makta.model.entities.Lent;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.utils.AppExecutors;
@@ -23,6 +25,12 @@ import com.google.firebase.firestore.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.android.blackoder.makta.utils.Constants.COLLECTION_BOOKS;
+import static com.android.blackoder.makta.utils.Constants.COLLECTION_BORROWED;
+import static com.android.blackoder.makta.utils.Constants.COLLECTION_LENT;
+import static com.android.blackoder.makta.utils.Constants.COLLECTION_REQUESTS;
+import static com.android.blackoder.makta.utils.Constants.COLLECTION_USERS;
 
 /**
  * Created By blackcoder
@@ -44,7 +52,10 @@ final class BooksRepository {
     void addBookToUserCollection(Book book, FirebaseUser firebaseUser) {
         if (firebaseUser != null) {
             AppExecutors.getInstance().diskIO().execute(() ->
-                    db.collection("users").document(firebaseUser.getUid()).collection("books").document(book.getTitle())
+                    db.collection(COLLECTION_USERS)
+                            .document(firebaseUser.getUid())
+                            .collection(COLLECTION_BOOKS)
+                            .document(book.getTitle())
                             .set(parseBookData(book))
                             .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
                             .addOnFailureListener(e ->
@@ -71,9 +82,9 @@ final class BooksRepository {
 
     FirestoreRecyclerOptions loadBookRequests(@NonNull FirebaseUser firebaseUser) {
         Query lQuery = db
-                .collection("requests")
+                .collection(COLLECTION_REQUESTS)
                 .document(firebaseUser.getUid())
-                .collection("books");
+                .collection(COLLECTION_BOOKS);
 
         return new FirestoreRecyclerOptions.Builder<BookRequests>()
                 .setQuery(lQuery, BookRequests.class)
@@ -83,18 +94,16 @@ final class BooksRepository {
     void removeBookRequest(BookRequests bookRequests, @NonNull FirebaseUser firebaseUser) {
         String title = getBookTitleFromRequest(bookRequests);
         AppExecutors.getInstance().diskIO().execute(() ->
-                db.collection("requests")
+                db.collection(COLLECTION_REQUESTS)
                         .document(firebaseUser.getUid())
-                        .collection("books")
+                        .collection(COLLECTION_BOOKS)
                         .document(title + "-" + bookRequests.getRequester())
                         .delete()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful())
                                 Log.d("Clear Request", "DocumentSnapshot successfully deleted!");
                         })
-                        .addOnFailureListener(e -> {
-                            Log.e("Clear Request", e.getMessage());
-                        }));
+                        .addOnFailureListener(e -> Log.e("Clear Request", e.getMessage())));
 
     }
 
@@ -127,9 +136,9 @@ final class BooksRepository {
             }
         };
         AppExecutors.getInstance().diskIO().execute(() ->
-                db.collection("requests")
+                db.collection(COLLECTION_REQUESTS)
                         .document(owner)
-                        .collection("books")
+                        .collection(COLLECTION_BOOKS)
                         .document(title + "-" + firebaseUser.getDisplayName())
                         .set(borrowPayload)
                         .addOnSuccessListener(aVoid -> Log.d("Book Request :", "SUCCESS"))
@@ -140,10 +149,13 @@ final class BooksRepository {
         String userId = firebaseUser.getUid();
         Map<String, String> sharedBookPayload = parseBookData(book);
         sharedBookPayload.put("user", userId);
-        AppExecutors.getInstance().diskIO().execute(() -> db.collection("books").document(book.getTitle())
-                .set(sharedBookPayload)
-                .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
-                .addOnFailureListener(e -> Log.w("Book Entry", e.getMessage())));
+        AppExecutors.getInstance().diskIO().execute(() ->
+                db
+                        .collection(COLLECTION_BOOKS)
+                        .document(book.getTitle())
+                        .set(sharedBookPayload)
+                        .addOnSuccessListener(aVoid -> Log.d("Book Entry :", "SUCCESS"))
+                        .addOnFailureListener(e -> Log.w("Book Entry", e.getMessage())));
     }
 
     void addBookToWishList(WishBook book) {
@@ -176,9 +188,9 @@ final class BooksRepository {
         Map<String, String> lentOutBook = new HashMap<>();
         lentOutBook.put("title", getBookTitleFromRequest(bookRequests));
         lentOutBook.put("to", bookRequests.getRequester());
-        db.collection("users")
+        db.collection(COLLECTION_USERS)
                 .document(firebaseUser.getUid())
-                .collection("lent")
+                .collection(COLLECTION_LENT)
                 .document(getBookTitleFromRequest(bookRequests))
                 .set(lentOutBook)
                 .addOnCompleteListener(task -> {
@@ -193,9 +205,9 @@ final class BooksRepository {
         Map<String, String> borrowPayload = new HashMap<>();
         borrowPayload.put("borrowed", getBookTitleFromRequest(bookRequests));
         borrowPayload.put("from", firebaseUser.getDisplayName());
-        db.collection("users")
+        db.collection(COLLECTION_USERS)
                 .document(bookRequests.getUser())
-                .collection("borrowed")
+                .collection(COLLECTION_BORROWED)
                 .document(getBookTitleFromRequest(bookRequests))
                 .set(borrowPayload)
                 .addOnCompleteListener(task -> {
@@ -208,6 +220,26 @@ final class BooksRepository {
 
     public void deleteBookFromSharedCollection(Book book, @NonNull FirebaseUser firebaseUser) {
 //TODO Delete book from firestore
+    }
+
+    FirestoreRecyclerOptions loadBorrowedBooks(FirebaseUser firebaseUser) {
+        Query lQuery = db
+                .collection(COLLECTION_USERS)
+                .document(firebaseUser.getUid())
+                .collection(COLLECTION_BORROWED);
+        return new FirestoreRecyclerOptions.Builder<Borrowed>()
+                .setQuery(lQuery, Borrowed.class)
+                .build();
+    }
+
+    FirestoreRecyclerOptions loadLentOutBooks(FirebaseUser firebaseUser) {
+        Query lQuery = db
+                .collection(COLLECTION_USERS)
+                .document(firebaseUser.getUid())
+                .collection(COLLECTION_LENT);
+        return new FirestoreRecyclerOptions.Builder<Lent>()
+                .setQuery(lQuery, Lent.class)
+                .build();
     }
 
     private static class insertAsyncTask extends AsyncTask<Book, Void, Void> {

@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 import com.android.blackoder.makta.model.entities.Book;
+import com.android.blackoder.makta.model.entities.BookRequests;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,23 +28,40 @@ public final class FirestoreViewModel extends AndroidViewModel {
         return mBooksRepository.searchSharedCollection(bookTitle);
     }
 
+    //TODO Delete book from firestore
+    public void deleteBookFirestore(Book book) {
+      mBooksRepository.deleteBookFromSharedCollection(book,getFirebaseUser());
+    }
+
     public void addBookFirestore(Book book) {
-        mBooksRepository.addBookToUserCollection(book, getlFirebaseUser());
+        mBooksRepository.addBookToUserCollection(book, getFirebaseUser());
     }
 
     public void shareBookFirestore(Book book) {
-        mBooksRepository.addBookToSharedCollection(book, getlFirebaseUser());
+        mBooksRepository.addBookToSharedCollection(book, getFirebaseUser());
+    }
+
+    public void dismissRequest(BookRequests bookRequests) {
+        mBooksRepository.removeBookRequest(bookRequests, getFirebaseUser());
     }
 
     public void borrowBook(String owner, String title) {
-        mBooksRepository.borrowBook(owner, title, getlFirebaseUser());
+        mBooksRepository.borrowBook(owner, title, getFirebaseUser());
     }
 
-    public FirebaseUser getlFirebaseUser() {
+    public FirebaseUser getFirebaseUser() {
         return lFirebaseUser;
     }
 
     public FirestoreRecyclerOptions loadBookRequests() {
-        return mBooksRepository.loadBookRequests(getlFirebaseUser());
+        return mBooksRepository.loadBookRequests(getFirebaseUser());
+    }
+
+    public void addToLentOutBooks(BookRequests bookRequests) {
+        mBooksRepository.addBookToLentOut(bookRequests, getFirebaseUser());
+    }
+
+    public void sendBorrowRequestAccepted(BookRequests bookRequests) {
+        mBooksRepository.addBookToBorrowed(bookRequests, getFirebaseUser());
     }
 }

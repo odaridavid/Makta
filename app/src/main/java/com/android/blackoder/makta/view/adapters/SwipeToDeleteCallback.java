@@ -9,6 +9,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.BookViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.utils.AppExecutors;
@@ -25,12 +26,14 @@ public final class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback 
     private BookViewModel mBookViewModel;
     private WishListAdapter mWishListAdapter;
     private Context mContext;
+    private FirestoreViewModel mFirestoreViewModel;
 
-    public SwipeToDeleteCallback(MyBooksAdapter adapter, BookViewModel bookViewModel, Context context) {
+    public SwipeToDeleteCallback(MyBooksAdapter adapter, BookViewModel bookViewModel, FirestoreViewModel firestoreViewModel, Context context) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.mMyBooksAdapter = adapter;
         this.mBookViewModel = bookViewModel;
         mContext = context;
+        mFirestoreViewModel = firestoreViewModel;
     }
 
     public SwipeToDeleteCallback(WishListAdapter adapter, BookViewModel bookViewModel, Context context) {
@@ -51,7 +54,10 @@ public final class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback 
         if (mMyBooksAdapter != null) {
             int position = viewHolder.getAdapterPosition();
             Book lBook = mMyBooksAdapter.getItemFromList(position);
-            AppExecutors.getInstance().diskIO().execute(() -> mBookViewModel.remove(lBook));
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                mBookViewModel.remove(lBook);
+                mFirestoreViewModel.deleteBookFirestore(lBook);
+            });
             mMyBooksAdapter.notifyDataSetChanged();
         } else {
             int position = viewHolder.getAdapterPosition();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.books.BookViewModel;
+import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.adapters.MyBooksAdapter;
@@ -32,6 +33,7 @@ public final class BookListActivity extends AppCompatActivity implements MyBooks
         setContentView(R.layout.activity_book_list);
         rvMyBooks = findViewById(R.id.recycler_view_my_books);
         BookViewModel lBookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        FirestoreViewModel lFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         TextView tvNoBooks = findViewById(R.id.text_view_no_books);
         FloatingActionButton fabAddBook = findViewById(R.id.fab_add_book);
         MyBooksAdapter lMyBooksAdapter = new MyBooksAdapter(this);
@@ -43,7 +45,7 @@ public final class BookListActivity extends AppCompatActivity implements MyBooks
             }
         });
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(lMyBooksAdapter, lBookViewModel, BookListActivity.this));
+                ItemTouchHelper(new SwipeToDeleteCallback(lMyBooksAdapter, lBookViewModel, lFirestoreViewModel, BookListActivity.this));
         AppUtils.setupRecyclerView(itemTouchHelper, rvMyBooks);
         rvMyBooks.setAdapter(lMyBooksAdapter);
         fabAddBook.setOnClickListener(v -> {

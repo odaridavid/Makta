@@ -9,9 +9,10 @@ import org.parceler.Parcel;
  * On 22/03/19
  **/
 @Parcel
-public class BookRequests {
+public final class BookRequests {
     String body;
     String requester;
+    String user;
 
     BookRequests() {
     }
@@ -19,6 +20,14 @@ public class BookRequests {
     public BookRequests(String body, String requester) {
         this.body = body;
         this.requester = requester;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getBody() {

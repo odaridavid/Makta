@@ -13,7 +13,7 @@
     <!--Profile Strings-->
     <string name="book_request">Book Request</string>
     <string name="wish_list">Wish List</string>
-    <string name="my_boooks">My Boooks</string>
+    <string name="my_boooks">My Books</string>
     <string name="sign_out">Sign Out</string>
 
 
@@ -51,14 +51,22 @@
 
     <!--Book Request Strings-->
     <string name="request_for_book">Request For Book</string>
+    <string name="decline_request_snackbar_message">Declined Request</string>
+    <string name="request_sent">Request Sent</string>
+    <string name="request_not_sent">Request Not Sent</string>
+
+    <!--WishList String-->
     <string name="add_to_wishlist">Add to Wishlist</string>
     <string name="book_exixsts_wishlist">Book Already In Wishlist</string>
     <string name="book_added_wishlist">Book Added to Wishlist</string>
     <string name="book_shared">Book Shared</string>
     <string name="remove_from_wishlist">Removed From WishList</string>
-    <string name="request_sent">Request Sent</string>
-    <string name="appwidget_text">EXAMPLE</string>
+
+    <!--Widget Strings-->
+    <string name="appwidget_text">Makta Widget</string>
     <string name="add_widget">Add widget</string>
-    <string name="request_not_sent">Request Not Sent</string>
-    <string name="from_peronal_collection">From Your Collection</string>
+
+    <string name="from_peronal_collection">Already In Your Collection</string>
+    <string name="accept_request">Accepted Request</string>
+
 </resources>

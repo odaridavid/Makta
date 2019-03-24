@@ -16,7 +16,7 @@ import java.util.List;
  * Created By blackcoder
  * On 22/03/19
  **/
-public class WishListAdapter extends RecyclerView.Adapter<BookViewHolder> {
+public final class WishListAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     private List<WishBook> mBookList;
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,11 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.blackoder.makta.R;
+import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.BookRequests;
+import com.android.blackoder.makta.utils.AppExecutors;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
@@ -27,11 +29,13 @@ public final class BookRequestActivity extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     private RecyclerView mRvBookRequests;
     private TextView mTvNoBookRequests;
+    private FirestoreViewModel mFirestoreViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_request);
+        mFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         mRvBookRequests = findViewById(R.id.recycler_view_book_requests);
         LinearLayoutManager lLinearLayoutManager = new LinearLayoutManager(this);
         mRvBookRequests.setLayoutManager(lLinearLayoutManager);
@@ -66,9 +70,11 @@ public final class BookRequestActivity extends AppCompatActivity {
                 if (!(super.getItemCount() > 0)) {
                     mTvNoBookRequests.setVisibility(View.VISIBLE);
                     mTvNoBookRequests.setText(getString(R.string.no_book_requests));
+                } else {
+                    mTvNoBookRequests.setVisibility(View.GONE);
+                    mRvBookRequests.setAdapter(this);
+                    notifyDataSetChanged();
                 }
-                mRvBookRequests.setAdapter(this);
-                notifyDataSetChanged();
             }
         };
     }
@@ -83,8 +89,12 @@ public final class BookRequestActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                // TODO delete from firestore requests
-                Toast.makeText(BookRequestActivity.this, "Left", Toast.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.recycler_view_book_requests), getString(R.string.decline_request_snackbar_message), Snackbar.LENGTH_SHORT).show();
+                int position = viewHolder.getAdapterPosition();
+                BookRequests lBookRequests = (BookRequests) adapter.getItem(position);
+                AppExecutors.getInstance().diskIO().execute(() -> mFirestoreViewModel.dismissRequest(lBookRequests));
+                adapter.notifyItemRemoved(position);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,8 +116,17 @@ public final class BookRequestActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                // TODO add to lent ,add to borrowed for user ,remove from recycler view refresh layout
-                Toast.makeText(BookRequestActivity.this, "Right", Toast.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.recycler_view_book_requests), R.string.accept_request, Snackbar.LENGTH_SHORT).show();
+                int position = viewHolder.getAdapterPosition();
+                BookRequests lBookRequests = (BookRequests) adapter.getItem(position);
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                            mFirestoreViewModel.sendBorrowRequestAccepted(lBookRequests);
+                            mFirestoreViewModel.addToLentOutBooks(lBookRequests);
+                            mFirestoreViewModel.dismissRequest(lBookRequests);
+                        }
+                );
+                adapter.notifyItemRemoved(position);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

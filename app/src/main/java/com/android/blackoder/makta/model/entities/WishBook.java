@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
  * On 18/03/19
  **/
 @Entity(tableName = "wish_list_table")
-public class WishBook {
+public final class WishBook {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     private long _id;

@@ -18,7 +18,6 @@ import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
 import com.android.blackoder.makta.view.fragments.MyBookDetailFragment;
 import com.android.blackoder.makta.view.fragments.RequestDetailFragment;
-import com.android.blackoder.makta.view.profile.BookListActivity;
 
 import org.parceler.Parcels;
 

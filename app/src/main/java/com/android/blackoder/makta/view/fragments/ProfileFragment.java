@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 import com.android.blackoder.makta.databinding.FragmentProfileBinding;
 import com.android.blackoder.makta.view.LoginActivity;
-import com.android.blackoder.makta.view.profile.BookListActivity;
-import com.android.blackoder.makta.view.profile.BookRequestActivity;
-import com.android.blackoder.makta.view.profile.WishListActivity;
+import com.android.blackoder.makta.view.BookListActivity;
+import com.android.blackoder.makta.view.BookRequestActivity;
+import com.android.blackoder.makta.view.WishListActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

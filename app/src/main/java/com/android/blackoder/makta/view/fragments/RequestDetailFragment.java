@@ -37,7 +37,7 @@ public final class RequestDetailFragment extends Fragment {
         mFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         if (getArguments() != null) {
             SharedBook lSharedBook = Parcels.unwrap(getArguments().getParcelable("book"));
-            mUid = mFirestoreViewModel.getlFirebaseUser().getUid();
+            mUid = mFirestoreViewModel.getFirebaseUser().getUid();
             if (lSharedBook != null && lSharedBook.getUser().equals(mUid)) {
                 lBtnRequest.setEnabled(false);
                 lBtnRequest.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));

@@ -10,7 +10,7 @@ import org.parceler.Parcel;
  * On 16/03/19
  **/
 @Parcel
-public class SharedBook {
+public final class SharedBook {
 
     String title;
     String author;

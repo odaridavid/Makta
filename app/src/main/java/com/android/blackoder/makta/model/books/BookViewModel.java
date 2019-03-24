@@ -48,6 +48,6 @@ public final class BookViewModel extends AndroidViewModel {
     }
 
     public boolean checkIfExists(WishBook wishBook) {
-        return mBooksRepository.checkBookExists(wishBook);
+        return mBooksRepository.checkBookExistsInWishlist(wishBook);
     }
 }

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.blackoder.makta.R;
-import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.books.FirestoreViewModel;
 import com.android.blackoder.makta.model.entities.BookRequests;
 import com.android.blackoder.makta.utils.AppExecutors;
@@ -79,9 +78,8 @@ public final class BookRequestActivity extends AppCompatActivity {
         };
     }
 
-    public void acceptOrDeclineRequest(RecyclerView recyclerView) {
-//        Setup swipe to dismiss or accept request
-        ItemTouchHelper lItemTouchHelperDismiss = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    public ItemTouchHelper itemTouchHelperDismiss() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -108,7 +106,10 @@ public final class BookRequestActivity extends AppCompatActivity {
 
             }
         });
-        ItemTouchHelper lItemTouchHelperAccept = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+    }
+
+    public ItemTouchHelper itemTouchHelperAccept() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -140,8 +141,11 @@ public final class BookRequestActivity extends AppCompatActivity {
 
             }
         });
-        lItemTouchHelperDismiss.attachToRecyclerView(recyclerView);
-        lItemTouchHelperAccept.attachToRecyclerView(recyclerView);
+    }
+
+    public void acceptOrDeclineRequest(RecyclerView recyclerView) {
+        itemTouchHelperDismiss().attachToRecyclerView(recyclerView);
+        itemTouchHelperAccept().attachToRecyclerView(recyclerView);
     }
 
     class BookRequestsViewHolder extends RecyclerView.ViewHolder {

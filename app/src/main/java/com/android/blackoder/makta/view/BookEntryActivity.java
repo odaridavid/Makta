@@ -95,7 +95,6 @@ public final class BookEntryActivity extends AppCompatActivity {
         String description_ = description.getText().toString();
         String edition_ = edition.getText().toString();
         String title_ = title.getText().toString();
-
         validateInputsOnView(author_, title_, description_, edition_);
         return mValidator.buildBookInfoAsList(author_, title_, description_, edition_);
     }

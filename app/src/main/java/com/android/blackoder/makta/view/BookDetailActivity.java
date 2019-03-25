@@ -81,7 +81,6 @@ public final class BookDetailActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_wishlist) {
-//            TODO delete and add functionality
 //            TODO widget updating
 //            TODO notification on borrow and book request
 //            TODO Add animations

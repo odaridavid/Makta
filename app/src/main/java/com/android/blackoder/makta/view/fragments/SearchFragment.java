@@ -109,7 +109,7 @@ public final class SearchFragment extends Fragment {
                 super.onDataChanged();
                 lProgressBar.setVisibility(View.GONE);
                 if (!(super.getItemCount() > 0)) {
-                    displayError();
+                    Toast.makeText(getActivity(), getString(R.string.no_book_found), Toast.LENGTH_LONG).show();
                 }
                 rvSearchResults.setAdapter(this);
                 notifyDataSetChanged();
@@ -118,10 +118,6 @@ public final class SearchFragment extends Fragment {
         adapter.startListening();
     }
 
-
-    public void displayError() {
-        Toast.makeText(getActivity(), "No Book Found", Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public void onStop() {

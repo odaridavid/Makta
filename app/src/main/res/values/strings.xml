@@ -68,5 +68,9 @@
 
     <string name="from_peronal_collection">Already In Your Collection</string>
     <string name="accept_request">Accepted Request</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="anonymous_email">random@host.com</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="no_book_found">No Book Found</string>
 
 </resources>

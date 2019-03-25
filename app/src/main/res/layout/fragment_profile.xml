@@ -30,11 +30,6 @@
                     android:id="@+id/text_view_email"
                     style="@style/Theme.MaktaApp.ProfileText"
                     tools:text="davidkibzodari@gmail.com" />
-
-                <TextView
-                    android:id="@+id/text_view_location"
-                    style="@style/Theme.MaktaApp.ProfileText"
-                    tools:text="Nairobi,Kenya" />
             </LinearLayout>
 
             <View

@@ -41,7 +41,6 @@ public final class BookListActivity extends AppCompatActivity implements MyBooks
             if (books != null) {
                 AppUtils.handleVisibility(books, rvMyBooks, tvNoBooks);
                 lMyBooksAdapter.setBookList(books);
-                Log.d("BookList", books.toString());
             }
         });
         ItemTouchHelper itemTouchHelper = new

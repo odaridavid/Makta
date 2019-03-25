@@ -72,9 +72,5 @@ ext {
             parceler           : "org.parceler:parceler-api:$parceler_version",
             parcelerAnnotations: "org.parceler:parceler:$parceler_version"
     ]
-    dexter_version = '5.0.0'
-    dexterLib = [
-            runtimePermissions: "com.karumi:dexter:$dexter_version"
-    ]
 
 }

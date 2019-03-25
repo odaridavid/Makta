@@ -2,7 +2,6 @@ package com.android.blackoder.makta.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,10 +15,13 @@ import com.android.blackoder.makta.model.books.BookViewModel;
 import com.android.blackoder.makta.model.entities.Book;
 import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.model.entities.WishBook;
+import com.android.blackoder.makta.utils.AppExecutors;
 import com.android.blackoder.makta.view.fragments.MyBookDetailFragment;
 import com.android.blackoder.makta.view.fragments.RequestDetailFragment;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
@@ -30,6 +32,7 @@ public final class BookDetailActivity extends AppCompatActivity {
     private WishBook mWishBook;
     private boolean isRequest = false;
     private BookViewModel mBookViewModel;
+    private List<WishBook> mWishBookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +79,30 @@ public final class BookDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+
         if (itemId == R.id.action_wishlist) {
-            new CheckBookExistsAsyncTask(mBookViewModel, bookExists -> {
-                if (bookExists) {
-//                    TODO Not deleting fix using detail view
-                    mBookViewModel.deleteFromWishList(mWishBook);
-                    item.setIcon(R.drawable.ic_fav_unfilled);
-                    Toast.makeText(getBaseContext(), getString(R.string.remove_from_wishlist), Toast.LENGTH_SHORT).show();
+//            TODO delete and add functionality
+//            TODO widget updating
+//            TODO notification on borrow and book request
+//            TODO Add animations
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                mBookViewModel.checkIfExists(mWishBook).observe(this, wishBooks -> {
+                    mWishBookList = wishBooks;
+                });
+                if (mWishBookList != null && mWishBookList.size() > 0) {
+                    mBookViewModel.deleteFromWishList(mWishBookList.get(0));
+                    runOnUiThread(() -> {
+                        item.setIcon(R.drawable.ic_fav_unfilled);
+                        Toast.makeText(getBaseContext(), getString(R.string.remove_from_wishlist), Toast.LENGTH_SHORT).show();
+                    });
                 } else {
                     mBookViewModel.addToWishList(mWishBook);
-                    item.setIcon(R.drawable.ic_fav);
-                    Toast.makeText(getBaseContext(), getString(R.string.book_added_wishlist), Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> {
+                        item.setIcon(R.drawable.ic_fav);
+                        Toast.makeText(getBaseContext(), getString(R.string.book_added_wishlist), Toast.LENGTH_SHORT).show();
+                    });
                 }
-            }).execute(mWishBook);
+            });
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -99,39 +113,14 @@ public final class BookDetailActivity extends AppCompatActivity {
         /* Called before menu is created */
         if (isRequest) {
             MenuItem lMenuItem = menu.findItem(R.id.action_wishlist);
-
-            new CheckBookExistsAsyncTask(mBookViewModel, bookExists -> {
-                if (!bookExists) {
-                    lMenuItem.setIcon(R.drawable.ic_fav_unfilled);
-                }
-            }).execute(mWishBook);
+            mBookViewModel.checkIfExists(mWishBook).observe(this, wishBooks -> {
+                /*Init wishlist*/
+                mWishBookList = wishBooks;
+                if (wishBooks != null && wishBooks.size() > 0)
+                    lMenuItem.setIcon(R.drawable.ic_fav);
+                else lMenuItem.setIcon(R.drawable.ic_fav_unfilled);
+            });
         }
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    private static class CheckBookExistsAsyncTask extends AsyncTask<WishBook, Void, Boolean> {
-
-        private BookViewModel mBookViewModel;
-        private UpdateMenuCallBack mUpdateMenuCallBack;
-
-        CheckBookExistsAsyncTask(BookViewModel bookViewModel, UpdateMenuCallBack callback) {
-            mBookViewModel = bookViewModel;
-            mUpdateMenuCallBack = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(WishBook... wishBooks) {
-            return mBookViewModel.checkIfExists(wishBooks[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            mUpdateMenuCallBack.setResult(aBoolean);
-        }
-    }
-
-    public interface UpdateMenuCallBack {
-        void setResult(boolean bookExists);
     }
 }

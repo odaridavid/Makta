@@ -47,7 +47,7 @@ public final class BookViewModel extends AndroidViewModel {
         mBooksRepository.removeBookFromWishList(wishBook);
     }
 
-    public boolean checkIfExists(WishBook wishBook) {
+    public LiveData<List<WishBook>> checkIfExists(WishBook wishBook) {
         return mBooksRepository.checkBookExistsInWishlist(wishBook);
     }
 }

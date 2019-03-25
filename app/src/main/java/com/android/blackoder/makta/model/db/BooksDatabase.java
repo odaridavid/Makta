@@ -12,7 +12,7 @@ import com.android.blackoder.makta.model.entities.WishBook;
  * Created By blackcoder
  * On 18/03/19
  **/
-@Database(entities = {Book.class, WishBook.class}, version = 1, exportSchema = false)
+@Database(entities = {Book.class, WishBook.class}, version = 2, exportSchema = false)
 public abstract class BooksDatabase extends RoomDatabase {
     public abstract MyBooksDao mMyBooksDao();
 

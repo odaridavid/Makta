@@ -75,10 +75,6 @@ final class BooksRepository {
         };
     }
 
-    boolean checkBookExistsInWishlist(WishBook wishBook) {
-        List<WishBook> lExistingWishBooks = mWishListDao.getExistingBooks(wishBook.getAuthor(), wishBook.getTitle());
-        return lExistingWishBooks.size() > 0;
-    }
 
     FirestoreRecyclerOptions loadBookRequests(@NonNull FirebaseUser firebaseUser) {
         Query lQuery = db
@@ -257,6 +253,11 @@ final class BooksRepository {
         }
     }
 
+    LiveData<List<WishBook>> checkBookExistsInWishlist(WishBook wishBook) {
+        return mWishListDao.getExistingBooks(wishBook.getAuthor(), wishBook.getTitle());
+    }
+
+
     private static class insertWishlistAsyncTask extends AsyncTask<WishBook, Void, Void> {
 
         private WishListDao mAsyncTaskDao;
@@ -274,15 +275,17 @@ final class BooksRepository {
 
     private static class deleteWishlistAsyncTask extends AsyncTask<WishBook, Void, Void> {
 
-        private WishListDao mAsyncTaskDao;
+        private WishListDao mDao;
 
         deleteWishlistAsyncTask(WishListDao dao) {
-            mAsyncTaskDao = dao;
+            mDao = dao;
         }
 
         @Override
-        protected Void doInBackground(WishBook... params) {
-            mAsyncTaskDao.deleteBook(params[0]);
+        protected Void doInBackground(final WishBook... params) {
+            Log.d("WishBook on Delete:", params[0].toString());
+            mDao.deleteBook(params[0].getAuthor(), params[0].getTitle());
+            Log.d("Delete Wishlist", "Deleted");
             return null;
         }
     }

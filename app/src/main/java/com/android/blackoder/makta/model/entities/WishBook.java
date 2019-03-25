@@ -2,6 +2,7 @@ package com.android.blackoder.makta.model.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -9,7 +10,8 @@ import android.support.annotation.NonNull;
  * Created By blackcoder
  * On 18/03/19
  **/
-@Entity(tableName = "wish_list_table")
+@Entity(tableName = "wish_list_table",indices = {@Index(value = {"title", "author"},
+        unique = true)})
 public final class WishBook {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

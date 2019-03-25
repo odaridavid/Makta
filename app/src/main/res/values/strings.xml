@@ -71,6 +71,5 @@
     <string name="anonymous">Anonymous</string>
     <string name="anonymous_email">random@host.com</string>
     <string name="signed_out">Signed Out</string>
-    <string name="no_book_found">No Book Found</string>
 
 </resources>

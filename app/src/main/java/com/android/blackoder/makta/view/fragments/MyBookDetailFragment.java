@@ -13,6 +13,8 @@ import com.android.blackoder.makta.utils.AppUtils;
 
 import org.parceler.Parcels;
 
+import static com.android.blackoder.makta.utils.Constants.BOOK_PARCEL;
+
 /**
  * Created By blackcoder
  * On 22/03/19
@@ -23,7 +25,7 @@ public final class MyBookDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail_my_book, container, false);
         if (getArguments() != null)
-            AppUtils.bindBookView(Parcels.unwrap(getArguments().getParcelable("book")), v);
+            AppUtils.bindBookView(Parcels.unwrap(getArguments().getParcelable(BOOK_PARCEL)), v);
         return v;
     }
 

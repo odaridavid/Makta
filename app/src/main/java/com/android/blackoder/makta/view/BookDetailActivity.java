@@ -26,6 +26,7 @@ import java.util.List;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_VIEW;
+import static com.android.blackoder.makta.utils.Constants.BOOK_PARCEL;
 
 public final class BookDetailActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public final class BookDetailActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             if (intent.hasExtra(BOOK_DETAIL_VIEW)) {
                 Book book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
-                bundle.putParcelable("book", Parcels.wrap(book));
+                bundle.putParcelable(BOOK_PARCEL, Parcels.wrap(book));
                 MyBookDetailFragment lMyBookDetailFragment = new MyBookDetailFragment();
                 lMyBookDetailFragment.setArguments(bundle);
                 setupFragment(lMyBookDetailFragment, "Book Detail");
@@ -52,15 +53,11 @@ public final class BookDetailActivity extends AppCompatActivity {
                 isRequest = true;
                 SharedBook book = Parcels.unwrap(intent.getParcelableExtra(BOOK_DETAIL));
                 mWishBook = new WishBook(book.getTitle(), book.getAuthor());
-                bundle.putParcelable("book", Parcels.wrap(book));
+                bundle.putParcelable(BOOK_PARCEL, Parcels.wrap(book));
                 RequestDetailFragment lRequestDetailFragment = new RequestDetailFragment();
                 lRequestDetailFragment.setArguments(bundle);
                 setupFragment(lRequestDetailFragment, "Book Request");
             }
-        } else {
-            Toast.makeText(BookDetailActivity.this, "Intent Error", Toast.LENGTH_LONG).show();
-            Intent lIntent = new Intent(BookDetailActivity.this, BookListActivity.class);
-            startActivity(lIntent);
         }
     }
 
@@ -79,15 +76,9 @@ public final class BookDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-
         if (itemId == R.id.action_wishlist) {
-//            TODO widget updating
-//            TODO notification on borrow and book request
-//            TODO Add animations
             AppExecutors.getInstance().diskIO().execute(() -> {
-                mBookViewModel.checkIfExists(mWishBook).observe(this, wishBooks -> {
-                    mWishBookList = wishBooks;
-                });
+                mBookViewModel.checkIfExists(mWishBook).observe(this, wishBooks -> mWishBookList = wishBooks);
                 if (mWishBookList != null && mWishBookList.size() > 0) {
                     mBookViewModel.deleteFromWishList(mWishBookList.get(0));
                     runOnUiThread(() -> {

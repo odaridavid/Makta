@@ -18,6 +18,8 @@ import com.android.blackoder.makta.utils.AppUtils;
 
 import org.parceler.Parcels;
 
+import static com.android.blackoder.makta.utils.Constants.BOOK_PARCEL;
+
 /**
  * Created By blackcoder
  * On 22/03/19
@@ -36,7 +38,7 @@ public final class RequestDetailFragment extends Fragment {
 
         mFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         if (getArguments() != null) {
-            SharedBook lSharedBook = Parcels.unwrap(getArguments().getParcelable("book"));
+            SharedBook lSharedBook = Parcels.unwrap(getArguments().getParcelable(BOOK_PARCEL));
             mUid = mFirestoreViewModel.getFirebaseUser().getUid();
             if (lSharedBook != null && lSharedBook.getUser().equals(mUid)) {
                 lBtnRequest.setEnabled(false);

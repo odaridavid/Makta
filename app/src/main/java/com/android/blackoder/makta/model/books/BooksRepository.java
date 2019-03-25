@@ -88,6 +88,7 @@ final class BooksRepository {
     }
 
     void removeBookRequest(BookRequests bookRequests, @NonNull FirebaseUser firebaseUser) {
+//        TODO Send Notification Book Request Declined
         String title = getBookTitleFromRequest(bookRequests);
         AppExecutors.getInstance().diskIO().execute(() ->
                 db.collection(COLLECTION_REQUESTS)
@@ -124,6 +125,7 @@ final class BooksRepository {
 
 
     void borrowBook(String owner, String title, @NonNull FirebaseUser firebaseUser) {
+//        TODO Send Notification for request
         Map<String, String> borrowPayload = new HashMap<String, String>() {
             {
                 put("body", "I would love to borrow " + title + " from your book collection");
@@ -198,6 +200,7 @@ final class BooksRepository {
     }
 
     void addBookToBorrowed(BookRequests bookRequests, @NonNull FirebaseUser firebaseUser) {
+//        TODO Send Notification for borrow request accepted
         Map<String, String> borrowPayload = new HashMap<>();
         borrowPayload.put("borrowed", getBookTitleFromRequest(bookRequests));
         borrowPayload.put("from", firebaseUser.getDisplayName());

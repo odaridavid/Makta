@@ -65,7 +65,6 @@ public final class SearchFragment extends Fragment {
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(SEARCH_QUERY_PERSISTENCE)) {
                 String search = savedInstanceState.getString(SEARCH_QUERY_PERSISTENCE);
-                Log.d("Query", search);
                 mSearchView.setText(search);
                 if (savedInstanceState.containsKey(SEARCH_RESULTS_PERSISTENCE)) {
                     mSharedBooks = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_RESULTS_PERSISTENCE));
@@ -80,18 +79,12 @@ public final class SearchFragment extends Fragment {
             FirestoreRecyclerOptions firestoreRecyclerOptions = lFirestoreViewModel.searchBook(bookTitle.trim());
             setUpAdapter(firestoreRecyclerOptions);
         });
-
         AppUtils.recyclerViewDecoration(rvSearchResults, lLinearLayoutManager);
         return rootView;
     }
 
     private void setUpAdapterSavedInstance(List<SharedBook> sharedBooks) {
-        SearchAdapter lSearchAdapter = new SearchAdapter(book -> {
-            Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-            intent.putExtra(BOOK_DETAIL, Parcels.wrap(book));
-            intent.putExtra(BOOK_DETAIL_REQUEST, "request");
-            startActivity(intent);
-        });
+        SearchAdapter lSearchAdapter = new SearchAdapter(book -> openDetailActivity(book));
         lSearchAdapter.setBookList(sharedBooks);
         rvSearchResults.setAdapter(lSearchAdapter);
     }
@@ -119,13 +112,7 @@ public final class SearchFragment extends Fragment {
             protected void onBindViewHolder(@NonNull BookViewHolder booksViewHolder, int position, @NonNull SharedBook model) {
                 booksViewHolder.tvBookTitle.setText(model.getTitle());
                 booksViewHolder.tvBookAuthor.setText(model.getAuthor());
-                booksViewHolder.itemView.setOnClickListener(v -> {
-                    Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-                    intent.putExtra(BOOK_DETAIL, Parcels.wrap(model));
-                    intent.putExtra(BOOK_DETAIL_REQUEST, "request");
-                    startActivity(intent);
-                });
-
+                booksViewHolder.itemView.setOnClickListener(v -> openDetailActivity(model));
             }
 
             @Override
@@ -152,6 +139,13 @@ public final class SearchFragment extends Fragment {
             }
         };
         adapter.startListening();
+    }
+
+    private void openDetailActivity(@NonNull SharedBook model) {
+        Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+        intent.putExtra(BOOK_DETAIL, Parcels.wrap(model));
+        intent.putExtra(BOOK_DETAIL_REQUEST, "request");
+        startActivity(intent);
     }
 
 

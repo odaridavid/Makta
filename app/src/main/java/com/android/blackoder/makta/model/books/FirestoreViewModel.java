@@ -28,7 +28,6 @@ public final class FirestoreViewModel extends AndroidViewModel {
         return mBooksRepository.searchSharedCollection(bookTitle);
     }
 
-    //TODO Delete book from firestore
     public void deleteBookFirestore(Book book) {
       mBooksRepository.deleteBookFromSharedCollection(book,getFirebaseUser());
     }

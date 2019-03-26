@@ -19,8 +19,10 @@ import com.android.blackoder.makta.utils.AppExecutors;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
@@ -217,8 +219,29 @@ final class BooksRepository {
                 .addOnFailureListener(e -> Log.d("Borrow Error", e.getMessage()));
     }
 
-    public void deleteBookFromSharedCollection(Book book, @NonNull FirebaseUser firebaseUser) {
-//TODO Delete book from firestore
+    void deleteBookFromSharedCollection(Book book, @NonNull FirebaseUser firebaseUser) {
+        db.collection(COLLECTION_BOOKS)
+                .whereEqualTo("title", book.getTitle())
+                .whereEqualTo("user", firebaseUser.getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot lQueryDocumentSnapshots = task.getResult();
+                        List<DocumentSnapshot> lDocuments = lQueryDocumentSnapshots.getDocuments();
+                        if (lDocuments.size() > 0) {
+                            db
+                                    .collection(COLLECTION_BOOKS)
+                                    .document(book.getTitle())
+                                    .delete()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            Log.e("Delete", "Successful");
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> Log.e("Delete", e.getMessage()));
+                        }
+                    }
+                });
     }
 
     FirestoreRecyclerOptions loadBorrowedBooks(FirebaseUser firebaseUser) {

@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'Makta_Key'
+            keyPassword 'makta_2019'
+            storeFile file('../makta_key.jks')
+            storePassword 'makta_2019'
+        }
+    }
     compileSdkVersion compileVersion
     defaultConfig {
         applicationId "com.android.blackoder.makta"
@@ -18,9 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
-    dataBinding{
+    dataBinding {
         enabled true
     }
     compileOptions {
@@ -33,31 +42,31 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    Support Libs
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    Support Libs
     implementation supportLibs.appcompatV7
     implementation supportLibs.supportV4
     implementation supportLibs.supportMediaCompat
     implementation supportLibs.design
     implementation supportLibs.constraintLayout
-//    Firebase Libs
+    //    Firebase Libs
     implementation firebaseLibs.crashylitics
     implementation firebaseLibs.firebaseCore
     implementation firebaseLibs.firebaseUiAuth
     implementation firebaseLibs.firestoreDb
     implementation firebaseLibs.firestoreUI
-//    Google Play Services
+    //    Google Play Services
     implementation googlePlayServices.auth
-//Room
+    //Room
     implementation roomLibs.runtime
     annotationProcessor roomLibs.roomAnnotations
     implementation lifecycleLibs.extensions
     annotationProcessor lifecycleLibs.lifecycleAnnotations
-//    3rd Party
+    //    3rd Party
     implementation parcelerLibs.parceler
     annotationProcessor parcelerLibs.parcelerAnnotations
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.1'
-//    Testing Libs
+    //    Testing Libs
     testImplementation unitTestLibs.junit
     androidTestImplementation androidTestLibs.espressoContrib
     androidTestImplementation androidTestLibs.espressoCore

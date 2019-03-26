@@ -27,10 +27,8 @@ My final Udacity NanoDegree Project.
 |:---:|:---:|:---:|:---:|:---:|
 | | | | | |
 | [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/6.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/7.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/8.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/9.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/10.png)]()|
-|:---:|:---:|:---:|:---:|:---:|
 | | | | | |
 | [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/11.png)]()|
-|:---:|
 | |
 
 </details>

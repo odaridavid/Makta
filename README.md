@@ -10,6 +10,33 @@ My final Udacity NanoDegree Project.
 
 1. Setup Firebase Project from [Firebase Console](https://firebase.google.com/?) and add the google-services.json file to `app` directory.
 
+## Libraries and Tools Used
+
+ - [Firebase](https://firebase.google.com/?) - Data Storage,Analytics and Authentication
+ - [Architecture Components](https://developer.android.com/topic/libraries/architecture) - Lifecycle aware operations and Room ORM
+ - [Parceler](https://github.com/johncarl81/parceler) - Passing of objects
+ - [Recycler View Swipe Decorator](https://github.com/xabaras/RecyclerViewSwipeDecorator) - Swipe Operations
+
+### Screenshots
+
+<details>
+
+ <summary> Mobile </summary>
+
+| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/1.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/2.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/3.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/4.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/5.png)]()|
+|:---:|:---:|:---:|:---:|:---:|
+| | | | | |
+| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/6.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/7.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/8.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/9.png)]()| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/10.png)]()|
+|:---:|:---:|:---:|:---:|:---:|
+| | | | | |
+| [![screens](https://github.com/Davidodari/Makta/blob/master/screenshots/11.png)]()|
+|:---:|
+| |
+
+</details>
+
+### Instructions 
+
 ## License
  
  This Project is licensed under Apache 2.0 license for more details refer to [LICENSE](https://github.com/Davidodari/Makta/blob/master/LICENSE.txt).

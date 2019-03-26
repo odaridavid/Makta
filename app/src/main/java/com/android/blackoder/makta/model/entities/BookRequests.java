@@ -14,7 +14,7 @@ public final class BookRequests {
     String requester;
     String user;
 
-    BookRequests() {
+    public BookRequests() {
     }
 
     public BookRequests(String body, String requester) {

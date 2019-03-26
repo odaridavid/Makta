@@ -166,24 +166,6 @@ final class BooksRepository {
         new deleteWishlistAsyncTask(mWishListDao).execute(book);
     }
 
-
-    LiveData<List<Book>> getMyBooks() {
-        return mMyBooksDao.getMyBooks();
-    }
-
-    LiveData<List<WishBook>> getWishListBooks() {
-        return mWishListDao.getWishList();
-    }
-
-    void insert(Book book) {
-        new insertAsyncTask(mMyBooksDao).execute(book);
-    }
-
-    void remove(Book book) {
-        new removeAsyncTask(mMyBooksDao).execute(book);
-    }
-
-
     void addBookToLentOut(BookRequests bookRequests, @NonNull FirebaseUser firebaseUser) {
         Map<String, String> lentOutBook = new HashMap<>();
         lentOutBook.put("title", getBookTitleFromRequest(bookRequests));
@@ -262,6 +244,22 @@ final class BooksRepository {
         return new FirestoreRecyclerOptions.Builder<Lent>()
                 .setQuery(lQuery, Lent.class)
                 .build();
+    }
+
+    LiveData<List<Book>> getMyBooks() {
+        return mMyBooksDao.getMyBooks();
+    }
+
+    LiveData<List<WishBook>> getWishListBooks() {
+        return mWishListDao.getWishList();
+    }
+
+    void insert(Book book) {
+        new insertAsyncTask(mMyBooksDao).execute(book);
+    }
+
+    void remove(Book book) {
+        new removeAsyncTask(mMyBooksDao).execute(book);
     }
 
     private static class insertAsyncTask extends AsyncTask<Book, Void, Void> {

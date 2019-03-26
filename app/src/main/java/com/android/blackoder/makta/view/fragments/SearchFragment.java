@@ -23,14 +23,20 @@ import com.android.blackoder.makta.model.entities.SharedBook;
 import com.android.blackoder.makta.utils.AppUtils;
 import com.android.blackoder.makta.view.BookDetailActivity;
 import com.android.blackoder.makta.view.adapters.BookViewHolder;
+import com.android.blackoder.makta.view.adapters.SearchAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL;
 import static com.android.blackoder.makta.utils.Constants.BOOK_DETAIL_REQUEST;
+import static com.android.blackoder.makta.utils.Constants.SEARCH_QUERY_PERSISTENCE;
+import static com.android.blackoder.makta.utils.Constants.SEARCH_RESULTS_PERSISTENCE;
 
 /**
  * Created By blackcoder
@@ -43,6 +49,7 @@ public final class SearchFragment extends Fragment {
     private FirestoreRecyclerAdapter adapter;
     private RecyclerView rvSearchResults;
     private ProgressBar lProgressBar;
+    private List<SharedBook> mSharedBooks;
 
     public SearchFragment() {
     }
@@ -51,10 +58,22 @@ public final class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         setupViews(rootView);
+        FirestoreViewModel lFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
         LinearLayoutManager lLinearLayoutManager = new LinearLayoutManager(getActivity());
         rvSearchResults.setLayoutManager(lLinearLayoutManager);
         rvSearchResults.setHasFixedSize(true);
-        FirestoreViewModel lFirestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel.class);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SEARCH_QUERY_PERSISTENCE)) {
+                String search = savedInstanceState.getString(SEARCH_QUERY_PERSISTENCE);
+                Log.d("Query", search);
+                mSearchView.setText(search);
+                if (savedInstanceState.containsKey(SEARCH_RESULTS_PERSISTENCE)) {
+                    mSharedBooks = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_RESULTS_PERSISTENCE));
+                    if (mSharedBooks != null)
+                        setUpAdapterSavedInstance(mSharedBooks);
+                }
+            }
+        }
         mSearch.setOnClickListener(v -> {
             lProgressBar.setVisibility(View.VISIBLE);
             String bookTitle = mSearchView.getText().toString();
@@ -64,6 +83,17 @@ public final class SearchFragment extends Fragment {
 
         AppUtils.recyclerViewDecoration(rvSearchResults, lLinearLayoutManager);
         return rootView;
+    }
+
+    private void setUpAdapterSavedInstance(List<SharedBook> sharedBooks) {
+        SearchAdapter lSearchAdapter = new SearchAdapter(book -> {
+            Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+            intent.putExtra(BOOK_DETAIL, Parcels.wrap(book));
+            intent.putExtra(BOOK_DETAIL_REQUEST, "request");
+            startActivity(intent);
+        });
+        lSearchAdapter.setBookList(sharedBooks);
+        rvSearchResults.setAdapter(lSearchAdapter);
     }
 
     private void setupViews(View rootView) {
@@ -113,6 +143,12 @@ public final class SearchFragment extends Fragment {
                 }
                 rvSearchResults.setAdapter(this);
                 notifyDataSetChanged();
+                List<SharedBook> lSharedBooks = new ArrayList<>();
+                for (int i = 0; i < adapter.getItemCount(); i++) {
+                    SharedBook lSharedBook = (SharedBook) adapter.getItem(i);
+                    lSharedBooks.add(lSharedBook);
+                    mSharedBooks = lSharedBooks;
+                }
             }
         };
         adapter.startListening();
@@ -124,6 +160,15 @@ public final class SearchFragment extends Fragment {
         super.onStop();
         if (adapter != null) {
             adapter.stopListening();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (!mSearchView.getText().toString().isEmpty()) {
+            outState.putString(SEARCH_QUERY_PERSISTENCE, mSearchView.getText().toString());
+            outState.putParcelable(SEARCH_RESULTS_PERSISTENCE, Parcels.wrap(mSharedBooks));
         }
     }
 }

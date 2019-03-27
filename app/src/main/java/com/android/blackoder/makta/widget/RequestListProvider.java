@@ -1,5 +1,6 @@
 package com.android.blackoder.makta.widget;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.RemoteViewsService;
 
 import com.android.blackoder.makta.R;
 import com.android.blackoder.makta.model.entities.BookRequests;
+import com.android.blackoder.makta.view.BookRequestActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,12 +29,13 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
     private List<BookRequests> mBookRequestsList;
     private Context context = null;
 
-    RequestListProvider(Context context, Intent intent) {
+    RequestListProvider(Context context) {
         this.context = context;
         mBookRequestsList = new ArrayList<>();
     }
 
     private void initDataFirestore() {
+
         FirebaseAuth lFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser lCurrentUser = lFirebaseAuth.getCurrentUser();
         if (lCurrentUser != null) {
@@ -42,11 +45,12 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
                     .document(lCurrentUser.getUid())
                     .collection(COLLECTION_BOOKS)
                     .addSnapshotListener((snapshots, e) -> {
-                        if (e != null) Log.e("Firestore Widget Error", e.getMessage());
-                        else {
-                            for (final DocumentSnapshot doc : snapshots.getDocuments()) {
+                        if (e != null) Log.e("Snapshot Error:", e.getMessage());
+                        else if (snapshots.size() > 0) {
+                            if (mBookRequestsList.size() > 0) mBookRequestsList.clear();
+                            Log.d("Snapshots", String.valueOf(snapshots.size()));
+                            for (DocumentSnapshot doc : snapshots.getDocuments()) {
                                 BookRequests lBookRequests = doc.toObject(BookRequests.class);
-                                Log.d("Requests", lBookRequests.toString());
                                 mBookRequestsList.add(lBookRequests);
                             }
                         }
@@ -66,7 +70,6 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -76,12 +79,13 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
 
     @Override
     public RemoteViews getViewAt(int position) {
-        final RemoteViews remoteView = new RemoteViews(
-                context.getPackageName(), R.layout.list_item_request);
+        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_item_request);
+        Log.d("List Size", String.valueOf(mBookRequestsList.size()));
         BookRequests lBookRequests = mBookRequestsList.get(position);
-        Log.d("Get View", lBookRequests.toString());
-        remoteView.setTextViewText(R.id.text_view_requester, lBookRequests.getRequester());
-        remoteView.setTextViewText(R.id.text_view_request_body, lBookRequests.getBody());
+        Log.d("Get View:", lBookRequests.toString());
+        remoteView.setTextViewText(R.id.text_view_widget_requester, lBookRequests.getRequester());
+        remoteView.setTextViewText(R.id.text_view_widget_request_body, lBookRequests.getBody());
+        remoteView.setOnClickPendingIntent(R.id.text_view_widget_request_body, PendingIntent.getActivity(context, 0, new Intent(context, BookRequestActivity.class), 0));
         return remoteView;
     }
 

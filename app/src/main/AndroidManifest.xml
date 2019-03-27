@@ -23,9 +23,18 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/request_widget_info" />
         </receiver>
+
         <service
             android:name=".widget.RequestService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".widget.WidgetUpdateService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.blackoder.makta.widget.action.book_requests" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".view.WishListActivity"
             android:label="WishList"

@@ -52,6 +52,7 @@ public final class BookRequests {
         return "BookRequests{" +
                 "body='" + body + '\'' +
                 ", requester='" + requester + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

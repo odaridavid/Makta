@@ -2,26 +2,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    android:padding="@dimen/widget_margin">
-
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_view_title_widget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/book_requests"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textColor="@color/purple_500"
+        android:text="@string/book_requests" />
 
     <ListView
         android:id="@+id/list_widget_items"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/text_view_empty_list_widget"
@@ -29,7 +22,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/no_book_requests"
-        android:textAlignment="center"
         android:textSize="20sp"
         android:visibility="gone" />
 

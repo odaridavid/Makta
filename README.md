@@ -12,7 +12,7 @@ My final Udacity NanoDegree Project.
 
 ## Libraries and Tools Used
 
- - [Firebase](https://firebase.google.com/?) - Data Storage,Analytics and Authentication
+ - [Firebase](https://firebase.google.com/?) - Data Storage,Analytics and Authentication with Firebase UI
  - [Architecture Components](https://developer.android.com/topic/libraries/architecture) - Lifecycle aware operations and Room ORM
  - [Parceler](https://github.com/johncarl81/parceler) - Passing of objects
  - [Recycler View Swipe Decorator](https://github.com/xabaras/RecyclerViewSwipeDecorator) - Swipe Operations
@@ -35,8 +35,8 @@ My final Udacity NanoDegree Project.
 
 ### Acknowledgements
 
-[Udacity](https://www.udacity.com/)
-[Andela Learning Community](https://andela.com/alc/?gclid=CjwKCAjwvuzkBRAhEiwA9E3FUqoiVwM_KD15likh_7WPlia98_gR27haZ9NUQe6BGXXKTjB9tTZv8xoCa6AQAvD_BwE)
++[Udacity](https://www.udacity.com/)
++[Andela Learning Community](https://andela.com/alc/?gclid=CjwKCAjwvuzkBRAhEiwA9E3FUqoiVwM_KD15likh_7WPlia98_gR27haZ9NUQe6BGXXKTjB9tTZv8xoCa6AQAvD_BwE)
 
 ## License
  

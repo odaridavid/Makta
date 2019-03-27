@@ -48,7 +48,6 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
                         if (e != null) Log.e("Snapshot Error:", e.getMessage());
                         else if (snapshots.size() > 0) {
                             if (mBookRequestsList.size() > 0) mBookRequestsList.clear();
-                            Log.d("Snapshots", String.valueOf(snapshots.size()));
                             for (DocumentSnapshot doc : snapshots.getDocuments()) {
                                 BookRequests lBookRequests = doc.toObject(BookRequests.class);
                                 mBookRequestsList.add(lBookRequests);
@@ -80,9 +79,7 @@ public final class RequestListProvider implements RemoteViewsService.RemoteViews
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_item_request);
-        Log.d("List Size", String.valueOf(mBookRequestsList.size()));
         BookRequests lBookRequests = mBookRequestsList.get(position);
-        Log.d("Get View:", lBookRequests.toString());
         remoteView.setTextViewText(R.id.text_view_widget_requester, lBookRequests.getRequester());
         remoteView.setTextViewText(R.id.text_view_widget_request_body, lBookRequests.getBody());
         remoteView.setOnClickPendingIntent(R.id.text_view_widget_request_body, PendingIntent.getActivity(context, 0, new Intent(context, BookRequestActivity.class), 0));

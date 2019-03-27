@@ -33,7 +33,10 @@ My final Udacity NanoDegree Project.
 
 </details>
 
-### Instructions 
+### Acknowledgements
+
+[Udacity](https://www.udacity.com/)
+[Andela Learning Community](https://andela.com/alc/?gclid=CjwKCAjwvuzkBRAhEiwA9E3FUqoiVwM_KD15likh_7WPlia98_gR27haZ9NUQe6BGXXKTjB9tTZv8xoCa6AQAvD_BwE)
 
 ## License
  
